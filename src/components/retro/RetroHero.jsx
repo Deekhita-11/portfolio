@@ -1,28 +1,405 @@
-﻿import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 import { FiArrowDown, FiFileText, FiTerminal } from "react-icons/fi";
+import { useTheme } from "../../context/ThemeContext";
 
 const DISCIPLINES = ["WEB SYSTEMS", "AUTONOMOUS ROBOTICS", "ALGORITHMS & DSA"];
 
-// Interactive Bio Terminal Lines
-const TERMINAL_LINES = [
-  { cmd: "whoami", out: "deekhita_bohidar // 3rd_year_b.tech_cse @ xim_university" },
-  { cmd: "cat current_focus.log", out: "building blood management system & real-world relational apps" },
-  { cmd: "cat leadership.md", out: "coordinator @ robogenix (robotics & iot club) · treasurer @ ieee" },
-  { cmd: "echo $INTERESTS", out: "solving dsa (187+ leetcode), full-stack web architectures, hardware kinematics" },
-  { cmd: "status", out: "READY_TO_BUILD // OPEN FOR INTERNSHIPS & COLLABORATION", accent: true },
-];
+// Interactive Type-able Terminal Subcomponent
+function InteractiveTerminal() {
+  const { theme, toggleTheme } = useTheme();
+  const [inputVal, setInputVal] = useState("");
+  const [history, setHistory] = useState([
+    {
+      type: "system",
+      text: "Deekhita Workstation Terminal [v5.2-interactive]\nType 'help' to inspect commands, or tap any quick chip below.",
+    },
+    {
+      type: "cmd",
+      cmd: "whoami",
+      text: "deekhita_bohidar // 3rd_year_b.tech_cse @ xim_university",
+    },
+    {
+      type: "cmd",
+      cmd: "cat current_focus.log",
+      text: "building blood management system & real-world relational apps",
+    },
+    {
+      type: "cmd",
+      cmd: "echo $INTERESTS",
+      text: "solving dsa (187+ leetcode), full-stack web architectures, hardware kinematics",
+    },
+    {
+      type: "cmd",
+      cmd: "status",
+      text: "READY_TO_BUILD // OPEN FOR INTERNSHIPS & COLLABORATION",
+      accent: true,
+    },
+  ]);
+  const [cmdHistory, setCmdHistory] = useState([
+    "whoami",
+    "cat current_focus.log",
+    "echo $INTERESTS",
+    "status",
+  ]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
+  const inputRef = useRef(null);
+
+  const executeCommand = (raw) => {
+    const trimmed = raw.trim();
+    if (!trimmed) return;
+
+    // Append to bash history for arrow navigation
+    setCmdHistory((prev) => [...prev, trimmed]);
+    setHistoryIndex(-1);
+
+    const parts = trimmed.split(" ");
+    const command = parts[0].toLowerCase();
+    const arg = parts.slice(1).join(" ").trim().toLowerCase();
+
+    let outputText = "";
+    let isAccent = false;
+
+    switch (command) {
+      case "help":
+        outputText =
+`AVAILABLE COMMANDS:
+  whoami      - Developer profile & current status
+  about       - Builder philosophy & problem-solving approach
+  skills      - Tech stack (Web, Embedded & Algorithms)
+  projects    - Featured applications & hardware systems
+  dsa         - LeetCode stats & algorithm focus
+  education   - Academic record & CGPA
+  leadership  - RobogeniX coordinator & club roles
+  contact     - Direct contact channels
+  goto <sec>  - Navigate page (projects, skills, about, contact)
+  theme       - Toggle dark / light theme
+  date        - Current system timestamp
+  cat <file>  - Read log (e.g., cat resume, cat focus)
+  clear       - Clear terminal history`;
+        break;
+
+      case "whoami":
+      case "bio":
+        outputText = "Deekhita Bohidar — 3rd Year B.Tech CSE @ XIM University, Bhubaneswar (CGPA: 8.68). Coordinator @ RobogeniX.";
+        break;
+
+      case "about":
+        outputText = "I'm a developer who genuinely enjoys solving problems. A B.Tech CSE student specializing in DSA and turning practical ideas into interactive web experiences with React, JavaScript, and relational databases.";
+        break;
+
+      case "skills":
+      case "stack":
+        outputText =
+`TECHNICAL MATRIX:
+  • Languages:   C/C++, Java, JavaScript, PHP, SQL
+  • Web Systems: React, Vite, Tailwind CSS, REST APIs, MySQL
+  • Hardware:    Arduino, ESP32, Sensor Arrays, L298N Motor Driver
+  • Core CS:     Data Structures & Algorithms, DBMS, OOP, Git`;
+        break;
+
+      case "projects":
+        outputText =
+`FEATURED BUILDS:
+  01 Blood Management System   [React / Tailwind / MySQL]
+  02 Gadget Genie             [Specs Engine & Comparator]
+  03 Periods Tracker          [Health Utility & PHP/MySQL]
+  04 Autonomous Line Follower [Arduino / Kinematics]
+  (Tip: type 'goto projects' to jump to project showcase)`;
+        break;
+
+      case "dsa":
+      case "leetcode":
+        outputText = "LeetCode Stats: 187+ problems solved! Strong foundation in Arrays, Two Pointers, Trees, Binary Search, and Dynamic Programming.";
+        isAccent = true;
+        break;
+
+      case "education":
+      case "academics":
+        outputText =
+`ACADEMIC LEDGER:
+  • B.Tech CSE — XIM University, Bhubaneswar (CGPA: 8.68, 2023–2027)
+  • Senior Secondary (Class XII) — DPS Damanjodi (88.2%)
+  • Secondary (Class X) — DPS Damanjodi (94.0%)`;
+        break;
+
+      case "leadership":
+        outputText =
+`ROLES & ACHIEVEMENTS:
+  • Coordinator @ RobogeniX (XIM University Robotics & IoT Club)
+  • Treasurer @ IEEE Student Branch
+  • 2nd Prize @ DRDO ICORT National Student Tech Exhibition 2025`;
+        break;
+
+      case "contact":
+        outputText =
+`GET IN TOUCH:
+  • Email:    deekhitabohidar@gmail.com
+  • GitHub:   github.com/Deekhita-11
+  • LeetCode: leetcode.com/u/Deekhita/
+  • LinkedIn: linkedin.com/in/`;
+        break;
+
+      case "goto":
+      case "cd":
+        if (["projects", "skills", "about", "contact"].includes(arg)) {
+          const el = document.getElementById(arg);
+          if (el) {
+            el.scrollIntoView({ behavior: "smooth" });
+            outputText = `Scrolled to #${arg}.`;
+          } else {
+            outputText = `Section #${arg} not found on page.`;
+          }
+        } else {
+          outputText = "Usage: goto [projects | skills | about | contact]";
+        }
+        break;
+
+      case "theme":
+        toggleTheme();
+        const nextTheme = theme === "dark" ? "light" : "dark";
+        outputText = `Theme toggled to ${nextTheme}! Page is now ${nextTheme} with ${nextTheme === "dark" ? "white" : "black"} terminal.`;
+        isAccent = true;
+        break;
+
+      case "date":
+        outputText = new Date().toLocaleString();
+        break;
+
+      case "cat":
+        if (arg.includes("resume")) {
+          window.open("/resume.pdf", "_blank");
+          outputText = "Opening /resume.pdf in a new tab...";
+        } else if (arg.includes("focus")) {
+          outputText = "Current focus: Building scalable full-stack web applications and sharpening DSA.";
+        } else if (arg.includes("leadership")) {
+          outputText = "Coordinator @ RobogeniX Club · Treasurer @ IEEE Student Branch.";
+        } else {
+          outputText = `cat: ${arg || "file"}: No such file or directory. Try 'cat resume' or 'cat focus'.`;
+        }
+        break;
+
+      case "sudo":
+        outputText = "sudo: guest user is not in the sudoers file. Incident reported to Deekhita.";
+        break;
+
+      case "clear":
+      case "cls":
+        setHistory([]);
+        return;
+
+      case "exit":
+        outputText = "Session cannot be terminated — feel free to explore the interactive portfolio!";
+        break;
+
+      default:
+        outputText = `bash: command not found: ${trimmed}. Type 'help' to view available commands.`;
+    }
+
+    setHistory((prev) => [
+      ...prev,
+      { type: "cmd", cmd: trimmed, text: outputText, accent: isAccent },
+    ]);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!inputVal.trim()) return;
+    executeCommand(inputVal);
+    setInputVal("");
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (cmdHistory.length === 0) return;
+      const nextIndex =
+        historyIndex === -1
+          ? cmdHistory.length - 1
+          : Math.max(0, historyIndex - 1);
+      setHistoryIndex(nextIndex);
+      setInputVal(cmdHistory[nextIndex] || "");
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (historyIndex === -1) return;
+      const nextIndex = historyIndex + 1;
+      if (nextIndex >= cmdHistory.length) {
+        setHistoryIndex(-1);
+        setInputVal("");
+      } else {
+        setHistoryIndex(nextIndex);
+        setInputVal(cmdHistory[nextIndex] || "");
+      }
+    } else if (e.key === "Tab") {
+      e.preventDefault();
+      const list = [
+        "help",
+        "whoami",
+        "about",
+        "skills",
+        "projects",
+        "dsa",
+        "education",
+        "leadership",
+        "contact",
+        "clear",
+        "theme",
+        "date",
+      ];
+      const match = list.find((c) => c.startsWith(inputVal.toLowerCase().trim()));
+      if (match) setInputVal(match);
+    }
+  };
+
+  // User specification: White terminal for black theme, Black terminal for white background
+  const isWhiteTerminal = theme === "dark";
+
+  const t = isWhiteTerminal
+    ? {
+        container: "bg-white border-slate-300 text-slate-900 shadow-2xl shadow-black/50 hover:border-blue-400",
+        header: "bg-slate-100 border-slate-200 text-slate-600",
+        title: "text-slate-800",
+        badge: "text-slate-500",
+        body: "bg-white",
+        sysText: "text-slate-500 border-slate-200",
+        promptUser: "text-slate-500",
+        promptDollar: "text-blue-600 font-bold",
+        cmdText: "text-slate-900",
+        outputText: "text-slate-700",
+        outputAccent: "text-blue-600 font-bold",
+        input: "text-slate-900 placeholder:text-slate-400",
+        bar: "bg-slate-50 border-slate-200 text-slate-600",
+        chip: "bg-white border-slate-300 text-slate-700 hover:border-blue-600 hover:text-blue-600 hover:bg-blue-50/60",
+        footer: "bg-slate-100 border-slate-200 text-slate-500",
+        indicator: "text-blue-600 font-semibold",
+        indicatorDot: "bg-blue-600",
+      }
+    : {
+        container: "bg-[#0B0E14] border-[#1E293B] text-[#F1F5F9] shadow-2xl shadow-slate-400/25 hover:border-[#38BDF8]/60",
+        header: "bg-[#161D2C] border-[#1E293B] text-[#94A3B8]",
+        title: "text-white",
+        badge: "text-[#94A3B8]",
+        body: "bg-[#0B0E14]",
+        sysText: "text-[#64748B] border-[#1E293B]/60",
+        promptUser: "text-[#94A3B8]",
+        promptDollar: "text-[#38BDF8] font-bold",
+        cmdText: "text-[#F1F5F9]",
+        outputText: "text-[#94A3B8]",
+        outputAccent: "text-[#38BDF8] font-bold",
+        input: "text-[#F1F5F9] placeholder:text-[#64748B]",
+        bar: "bg-[#161D2C] border-[#1E293B] text-[#94A3B8]",
+        chip: "bg-[#121722] border-[#1E293B] text-[#94A3B8] hover:border-[#38BDF8] hover:text-[#38BDF8] hover:bg-[#132338]",
+        footer: "bg-[#0B0E14] border-[#1E293B] text-[#64748B]",
+        indicator: "text-[#38BDF8] font-semibold",
+        indicatorDot: "bg-[#38BDF8]",
+      };
+
+  return (
+    <div
+      onClick={() => inputRef.current?.focus({ preventScroll: true })}
+      className={`w-full ${t.container} border rounded-2xl overflow-hidden text-left cursor-text flex flex-col transition-all duration-200`}
+    >
+      {/* Terminal Window Header Bar */}
+      <div className={`flex items-center justify-between px-5 py-3 ${t.header} border-b font-mono text-xs select-none transition-colors`}>
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-full bg-red-400/90" />
+          <span className="w-3 h-3 rounded-full bg-amber-400/90" />
+          <span className="w-3 h-3 rounded-full bg-emerald-400/90" />
+          <span className={`ml-2 font-semibold text-xs ${t.title}`}>
+            deekhita@workstation: ~/bio
+          </span>
+        </div>
+        <div className={`flex items-center gap-2 text-xs ${t.badge}`}>
+          <FiTerminal size={13} />
+          <span className="hidden sm:inline">BASH 5.2</span>
+          <span className={`w-1.5 h-1.5 rounded-full ${t.indicatorDot} animate-pulse`} />
+        </div>
+      </div>
+
+      {/* Terminal Body with Scrollable Output and Active Input */}
+      <div className={`p-5 font-mono text-xs sm:text-sm space-y-3 h-[290px] overflow-y-auto ${t.body} transition-colors`}>
+        {history.map((item, idx) => (
+          <div key={idx} className="space-y-1">
+            {item.type === "system" ? (
+              <div className={`${t.sysText} italic border-b pb-2 mb-2 whitespace-pre-wrap`}>
+                {item.text}
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center gap-2 font-semibold">
+                  <span className={`${t.promptUser} text-[11px] select-none`}>guest@deekhita:</span>
+                  <span className={t.promptDollar}>$</span>
+                  <span className={`${t.cmdText} font-bold`}>{item.cmd}</span>
+                </div>
+                {item.text && (
+                  <div
+                    className={`pl-4 leading-relaxed whitespace-pre-wrap ${
+                      item.accent ? t.outputAccent : t.outputText
+                    }`}
+                  >
+                    → {item.text}
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        ))}
+
+        {/* Active Command Input Line */}
+        <form onSubmit={handleSubmit} className="flex items-center gap-2 pt-1">
+          <span className="font-semibold select-none flex items-center gap-1 shrink-0">
+            <span className={`${t.promptUser} text-[11px] hidden sm:inline`}>guest@deekhita:</span>
+            <span className={t.promptDollar}>$</span>
+          </span>
+          <input
+            ref={inputRef}
+            type="text"
+            value={inputVal}
+            onChange={(e) => setInputVal(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="type command (try 'help', 'skills', 'dsa')..."
+            className={`flex-1 bg-transparent font-mono text-xs sm:text-sm focus:outline-none ${t.input}`}
+            spellCheck={false}
+            autoComplete="off"
+          />
+        </form>
+      </div>
+
+      {/* Quick Clickable Suggestions / Action Chips */}
+      <div className={`flex flex-wrap items-center gap-1.5 px-5 py-2.5 ${t.bar} border-t text-xs font-mono select-none transition-colors`}>
+        <span className="text-[10px] mr-1 hidden sm:inline opacity-70">QUICK RUN:</span>
+        {["help", "skills", "projects", "dsa", "contact", "clear"].map((cmd) => (
+          <button
+            key={cmd}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              executeCommand(cmd);
+              inputRef.current?.focus({ preventScroll: true });
+            }}
+            className={`px-2 py-0.5 rounded border ${t.chip} text-[11px] transition-all cursor-pointer`}
+          >
+            ${cmd}
+          </button>
+        ))}
+      </div>
+
+      {/* Terminal Bottom Status Bar */}
+      <div className={`px-5 py-2 border-t ${t.footer} flex items-center justify-between text-[11px] font-mono select-none transition-colors`}>
+        <span>UTF-8 // UNIX</span>
+        <span className={`flex items-center gap-1.5 ${t.indicator}`}>
+          <span className={`w-1.5 h-1.5 rounded-full ${t.indicatorDot} animate-ping`} />
+          <span>INTERACTIVE_SHELL_READY</span>
+        </span>
+      </div>
+    </div>
+  );
+}
 
 export default function RetroHero() {
   const [disciplineIndex, setDisciplineIndex] = useState(0);
-  const [terminalLineIndex, setTerminalLineIndex] = useState(0);
-
-  // 3D Perspective Tilt Refs & State
-  const containerRef = useRef(null);
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -31,46 +408,13 @@ export default function RetroHero() {
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTerminalLineIndex((prev) => (prev < TERMINAL_LINES.length ? prev + 1 : prev));
-    }, 900);
-    return () => clearInterval(timer);
-  }, []);
-
-  // 3D Mouse Parallax Movement
-  const handleMouseMove = useCallback((e) => {
-    if (!containerRef.current) return;
-    const { left, top, width, height } = containerRef.current.getBoundingClientRect();
-    const x = (e.clientX - left - width / 2) / (width / 2);
-    const y = (e.clientY - top - height / 2) / (height / 2);
-    setRotateX(-y * 4); // Subtle 4 degree tilt
-    setRotateY(x * 4);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setRotateX(0);
-    setRotateY(0);
-  }, []);
-
   return (
     <section
       id="hero"
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
       className="min-h-[92vh] flex flex-col items-center justify-center relative overflow-hidden pt-20 pb-16 px-6 lg:px-12"
     >
-      <div
-        ref={containerRef}
-        style={{ perspective: 1200 }}
-        className="w-full max-w-[1400px] mx-auto z-10"
-      >
-        {/* 3D Motion Container */}
-        <motion.div
-          animate={{ rotateX, rotateY }}
-          transition={{ type: "spring", stiffness: 260, damping: 25 }}
-          className="w-full will-change-transform"
-        >
+      <div className="w-full max-w-[1400px] mx-auto z-10">
+        <div className="w-full">
           {/* Top Folio Status Bar */}
           <div className="flex items-center gap-3 px-4 py-1.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] font-mono text-xs text-[var(--color-text-muted)] mb-8 shadow-sm w-fit mx-auto lg:mx-0">
             <span className="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-ping" />
@@ -183,51 +527,7 @@ export default function RetroHero() {
 
             {/* Right Column: Interactive Terminal (6 cols on lg) - SIDE BY SIDE */}
             <div className="lg:col-span-6 w-full">
-              <div className="w-full bg-[var(--color-surface)] border border-[var(--color-border)] rounded-2xl overflow-hidden shadow-2xl text-left">
-                {/* Terminal Window Top Bar */}
-                <div className="flex items-center justify-between px-5 py-3 bg-[var(--color-surface-elevated)] border-b border-[var(--color-border)] font-mono text-xs text-[var(--color-text-light)]">
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full bg-red-400/80" />
-                    <span className="w-3 h-3 rounded-full bg-amber-400/80" />
-                    <span className="w-3 h-3 rounded-full bg-emerald-400/80" />
-                    <span className="ml-2 font-semibold text-[var(--color-text)] text-xs">
-                      deekhita@workstation: ~/bio
-                    </span>
-                  </div>
-                  <span className="flex items-center gap-1.5 text-xs text-[var(--color-text-light)]">
-                    <FiTerminal size={13} />
-                    <span>BASH 5.2</span>
-                  </span>
-                </div>
-
-                {/* Terminal Body with Real Biographical Background */}
-                <div className="p-6 font-mono text-xs sm:text-sm space-y-3 min-h-[280px]">
-                  {TERMINAL_LINES.slice(0, terminalLineIndex).map((item, idx) => (
-                    <div key={idx} className="space-y-1">
-                      <div className="flex items-center gap-2 text-[var(--color-accent)] font-semibold">
-                        <span>$</span>
-                        <span className="text-[var(--color-text)]">{item.cmd}</span>
-                      </div>
-                      <div
-                        className={`pl-4 leading-relaxed ${
-                          item.accent
-                            ? "text-[var(--color-accent)] font-bold tracking-wider"
-                            : "text-[var(--color-text-muted)]"
-                        }`}
-                      >
-                        → {item.out}
-                      </div>
-                    </div>
-                  ))}
-                  <div className="inline-block w-2.5 h-4 bg-[var(--color-accent)] animate-pulse" />
-                </div>
-
-                {/* Terminal Bottom Status Bar */}
-                <div className="px-5 py-2.5 border-t border-[var(--color-border)] bg-[var(--color-surface-elevated)] flex items-center justify-between text-[11px] font-mono text-[var(--color-text-light)]">
-                  <span>UTF-8 // UNIX</span>
-                  <span className="text-[var(--color-accent)]">● BENCH_ONLINE</span>
-                </div>
-              </div>
+              <InteractiveTerminal />
             </div>
 
           </div>
@@ -252,7 +552,7 @@ export default function RetroHero() {
             </div>
           </div>
 
-        </motion.div>
+        </div>
       </div>
     </section>
   );
