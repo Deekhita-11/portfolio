@@ -160,7 +160,7 @@ export default function TechStackScroll() {
   });
 
   // Shifts 3 categories across the screen as user scrolls down
-  const xTransform = useTransform(scrollYProgress, [0, 1], ["0%", "-48%"]);
+  const xTransform = useTransform(scrollYProgress, [0, 1], ["0%", "-42%"]);
   const progressPercent = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   return (
@@ -168,35 +168,35 @@ export default function TechStackScroll() {
       id="skills"
       ref={containerRef}
       className="relative w-full"
-      style={{ height: "260vh" }}
+      style={{ height: "240vh" }}
     >
       {/* ── Sticky Viewport ── */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden bg-[var(--color-bg)] border-y border-[var(--color-border)]">
         
-        {/* Top Header matching the user screenshot layout with enlarged fonts */}
-        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-8 pb-4 flex flex-col md:flex-row md:items-end justify-between border-b border-[var(--color-border)] gap-4 z-20 bg-[var(--color-bg)]/90 backdrop-blur-sm">
+        {/* Top Header - Sized & Fixed as Clean Top Child */}
+        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-5 pb-3 flex flex-col md:flex-row md:items-end justify-between border-b border-[var(--color-border)] gap-3 shrink-0 z-10 bg-[var(--color-bg)]">
           <div>
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-1">
               <span className="w-2 h-2 rounded-full bg-[var(--color-accent)] animate-ping" />
               <span className="font-mono text-xs sm:text-sm text-[var(--color-accent)] font-bold uppercase tracking-widest">
                 02 // TECHNICAL ARSENAL
               </span>
             </div>
-            <h2 className="font-gaming font-black text-4xl sm:text-5xl text-[var(--color-text)] uppercase tracking-tight">
+            <h2 className="font-gaming font-black text-3xl sm:text-4xl text-[var(--color-text)] uppercase tracking-tight">
               SKILLS &amp; CAPABILITIES
             </h2>
           </div>
 
           <div className="flex items-center gap-6">
-            <p className="text-sm sm:text-base text-[var(--color-text-muted)] max-w-md hidden sm:block font-sans">
+            <p className="text-xs sm:text-sm text-[var(--color-text-muted)] max-w-md hidden md:block font-sans">
               Structured computer science fundamentals and modern software engineering toolkit with original brand toolchains.
             </p>
 
             {/* Live Progress Bar */}
-            <div className="font-mono text-xs text-right">
-              <span className="text-[11px] text-[var(--color-text-light)] block uppercase">HORIZONTAL TRACK</span>
+            <div className="font-mono text-xs text-right shrink-0">
+              <span className="text-[10px] text-[var(--color-text-light)] block uppercase">HORIZONTAL TRACK</span>
               <div className="flex items-center gap-2 mt-1">
-                <div className="w-28 h-2.5 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] overflow-hidden">
+                <div className="w-24 sm:w-28 h-2 rounded-full bg-[var(--color-surface)] border border-[var(--color-border)] overflow-hidden">
                   <motion.div
                     className="h-full bg-[var(--color-accent)]"
                     style={{ width: useTransform(progressPercent, (v) => `${v}%`) }}
@@ -210,115 +210,113 @@ export default function TechStackScroll() {
           </div>
         </div>
 
-        {/* ── Horizontal Track of Technical Arsenal Panels ── */}
-        <div className="w-full flex-1 flex items-center relative overflow-hidden py-4">
+        {/* ── Horizontal Track of Technical Arsenal Panels (Constrained to Available Height) ── */}
+        <div className="w-full flex-1 min-h-0 flex items-center relative overflow-hidden py-3 px-6 md:px-12">
           <motion.div
             style={{ x: xTransform }}
-            className="flex items-stretch gap-8 px-6 md:px-12 will-change-transform"
+            className="flex items-stretch gap-6 sm:gap-8 will-change-transform max-h-full"
           >
             {TECH_CATEGORIES.map((catGroup) => (
               <div
                 key={catGroup.num}
-                className="w-[380px] sm:w-[480px] md:w-[520px] flex-shrink-0 bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-accent)]/50 rounded-2xl p-6 sm:p-8 flex flex-col justify-between transition-all duration-300 shadow-xl"
+                className="w-[310px] sm:w-[410px] md:w-[460px] flex-shrink-0 bg-[var(--color-surface)] border border-[var(--color-border)] hover:border-[var(--color-accent)]/50 rounded-2xl p-4 sm:p-5 md:p-6 flex flex-col justify-between transition-all duration-300 shadow-xl max-h-[calc(100vh-175px)]"
               >
                 {/* Category Header */}
-                <div>
-                  <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[var(--color-border)]">
-                    <div className="flex items-center gap-3">
-                      <span className="font-mono text-sm font-bold text-[var(--color-accent)]">
-                        // {catGroup.num}
-                      </span>
-                      <h3 className="font-gaming font-bold text-base sm:text-lg text-[var(--color-text)] uppercase tracking-wider">
-                        {catGroup.category}
-                      </h3>
-                    </div>
-                    <span className="font-mono text-xs px-2.5 py-1 rounded bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-muted)] uppercase font-semibold">
-                      {catGroup.badge}
+                <div className="shrink-0 pb-2.5 mb-2.5 border-b border-[var(--color-border)] flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <span className="font-mono text-xs sm:text-sm font-bold text-[var(--color-accent)]">
+                      // {catGroup.num}
                     </span>
+                    <h3 className="font-gaming font-bold text-sm sm:text-base md:text-lg text-[var(--color-text)] uppercase tracking-wider">
+                      {catGroup.category}
+                    </h3>
                   </div>
+                  <span className="font-mono text-[10px] sm:text-xs px-2 py-0.5 rounded bg-[var(--color-bg)] border border-[var(--color-border)] text-[var(--color-text-muted)] uppercase font-semibold">
+                    {catGroup.badge}
+                  </span>
+                </div>
 
-                  <p className="text-xs sm:text-sm text-[var(--color-text-light)] mb-6 font-mono">
-                    {catGroup.summary}
-                  </p>
+                <p className="shrink-0 text-xs text-[var(--color-text-light)] mb-2.5 font-mono leading-relaxed">
+                  {catGroup.summary}
+                </p>
 
-                  {/* Skills Rows with Official Logos & Exact Brand Colors */}
-                  <div className="space-y-4">
-                    {catGroup.skills.map((skill) => {
-                      const Icon = skill.icon;
-                      return (
-                        <div
-                          key={skill.name}
-                          className="p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-accent)]/40 transition-all flex items-start justify-between gap-4 group"
-                        >
-                          <div className="flex items-start gap-4">
-                            {/* Actual Official Logo Container */}
-                            <div
-                              className="w-11 h-11 rounded-xl flex items-center justify-center shrink-0 mt-0.5 transition-transform group-hover:scale-110 shadow-sm"
-                              style={{
-                                backgroundColor: skill.brandBg,
-                                border: `1px solid ${skill.brandColor}40`,
-                              }}
-                            >
-                              <Icon
-                                size={24}
-                                style={{ color: skill.brandColor }}
-                              />
-                            </div>
-
-                            <div>
-                              <h4 className="font-gaming font-bold text-base text-[var(--color-text)] flex items-center gap-2">
-                                <span>{skill.name}</span>
-                                {skill.isTree && (
-                                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-[var(--color-accent)]/10 text-[var(--color-accent)] font-mono">
-                                    TREE ENGINE
-                                  </span>
-                                )}
-                              </h4>
-                              <p className="text-xs sm:text-sm text-[var(--color-text-muted)] leading-relaxed mt-1 font-sans">
-                                {skill.desc}
-                              </p>
-
-                              {/* Interactive Mini Binary Search Tree Visualizer for DSA Skill */}
-                              {skill.isTree && (
-                                <div className="mt-3 p-3 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] font-mono text-[11px]">
-                                  <div className="text-[10px] text-[var(--color-accent)] uppercase font-bold mb-1">
-                                    BINARY SEARCH TREE // O(LOG N) TRAVERSAL
-                                  </div>
-                                  <div className="flex items-center justify-center py-1">
-                                    <svg viewBox="0 0 160 65" className="w-44 h-16">
-                                      {/* Tree Connector Lines */}
-                                      <line x1="80" y1="14" x2="40" y2="46" stroke="var(--color-border)" strokeWidth="1.5" />
-                                      <line x1="80" y1="14" x2="120" y2="46" stroke="var(--color-border)" strokeWidth="1.5" />
-                                      {/* Root Node */}
-                                      <circle cx="80" cy="14" r="10" fill="var(--color-accent)" />
-                                      <text x="80" y="18" textAnchor="middle" fill="#0B0E14" fontSize="9" fontWeight="bold">ROOT</text>
-                                      {/* Left Child Node */}
-                                      <circle cx="40" cy="46" r="9" fill="var(--color-bg)" stroke="var(--color-accent)" strokeWidth="1.5" />
-                                      <text x="40" y="50" textAnchor="middle" fill="var(--color-text)" fontSize="8" fontWeight="bold">LEFT</text>
-                                      {/* Right Child Node */}
-                                      <circle cx="120" cy="46" r="9" fill="var(--color-bg)" stroke="var(--color-accent)" strokeWidth="1.5" />
-                                      <text x="120" y="50" textAnchor="middle" fill="var(--color-text)" fontSize="8" fontWeight="bold">RIGHT</text>
-                                    </svg>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
+                {/* Skills Rows with Official Logos & Exact Brand Colors */}
+                <div className="flex-1 min-h-0 overflow-y-auto scrollbar-none space-y-2 pr-1">
+                  {catGroup.skills.map((skill) => {
+                    const Icon = skill.icon;
+                    return (
+                      <div
+                        key={skill.name}
+                        className="p-2.5 sm:p-3 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-accent)]/40 transition-all flex items-start justify-between gap-3 group"
+                      >
+                        <div className="flex items-start gap-3 min-w-0 flex-1">
+                          {/* Actual Official Logo Container */}
+                          <div
+                            className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 mt-0.5 transition-transform group-hover:scale-105 shadow-sm"
+                            style={{
+                              backgroundColor: skill.brandBg,
+                              border: `1px solid ${skill.brandColor}40`,
+                            }}
+                          >
+                            <Icon
+                              size={20}
+                              style={{ color: skill.brandColor }}
+                            />
                           </div>
 
-                          {/* Role Tag */}
-                          <span className="text-xs font-mono text-[var(--color-text-light)] uppercase shrink-0 pt-1 tracking-wider hidden sm:inline">
-                            {skill.role}
-                          </span>
+                          <div className="min-w-0 flex-1">
+                            <h4 className="font-gaming font-bold text-xs sm:text-sm text-[var(--color-text)] flex items-center gap-2">
+                              <span className="truncate">{skill.name}</span>
+                              {skill.isTree && (
+                                <span className="text-[9px] px-1.5 py-0.2 rounded bg-[var(--color-accent)]/10 text-[var(--color-accent)] font-mono shrink-0">
+                                  TREE ENGINE
+                                </span>
+                              )}
+                            </h4>
+                            <p className="text-[11px] sm:text-xs text-[var(--color-text-muted)] leading-relaxed mt-0.5 font-sans line-clamp-2">
+                              {skill.desc}
+                            </p>
+
+                            {/* Interactive Mini Binary Search Tree Visualizer for DSA Skill */}
+                            {skill.isTree && (
+                              <div className="mt-2 p-2 rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] font-mono text-[10px]">
+                                <div className="text-[9px] text-[var(--color-accent)] uppercase font-bold mb-1">
+                                  BST // O(LOG N) TRAVERSAL
+                                </div>
+                                <div className="flex items-center justify-center py-0.5">
+                                  <svg viewBox="0 0 160 52" className="w-36 h-12">
+                                    {/* Tree Connector Lines */}
+                                    <line x1="80" y1="11" x2="42" y2="39" stroke="var(--color-border)" strokeWidth="1.5" />
+                                    <line x1="80" y1="11" x2="118" y2="39" stroke="var(--color-border)" strokeWidth="1.5" />
+                                    {/* Root Node */}
+                                    <circle cx="80" cy="11" r="8" fill="var(--color-accent)" />
+                                    <text x="80" y="14" textAnchor="middle" fill="#0B0E14" fontSize="7" fontWeight="bold">ROOT</text>
+                                    {/* Left Child Node */}
+                                    <circle cx="42" cy="39" r="7.5" fill="var(--color-bg)" stroke="var(--color-accent)" strokeWidth="1.5" />
+                                    <text x="42" y="42" textAnchor="middle" fill="var(--color-text)" fontSize="7" fontWeight="bold">LEFT</text>
+                                    {/* Right Child Node */}
+                                    <circle cx="118" cy="39" r="7.5" fill="var(--color-bg)" stroke="var(--color-accent)" strokeWidth="1.5" />
+                                    <text x="118" y="42" textAnchor="middle" fill="var(--color-text)" fontSize="7" fontWeight="bold">RIGHT</text>
+                                  </svg>
+                                </div>
+                              </div>
+                            )}
+                          </div>
                         </div>
-                      );
-                    })}
-                  </div>
+
+                        {/* Role Tag */}
+                        <span className="text-[10px] font-mono text-[var(--color-text-light)] uppercase shrink-0 pt-0.5 tracking-wider hidden sm:inline">
+                          {skill.role}
+                        </span>
+                      </div>
+                    );
+                  })}
                 </div>
 
                 {/* Card Footer Indicator */}
-                <div className="pt-4 mt-4 border-t border-[var(--color-border)] flex items-center justify-between text-xs font-mono text-[var(--color-text-light)]">
+                <div className="shrink-0 pt-2.5 mt-2.5 border-t border-[var(--color-border)] flex items-center justify-between text-[11px] font-mono text-[var(--color-text-light)]">
                   <span>STATUS: VERIFIED</span>
-                  <span className="text-[var(--color-accent)] font-semibold">3 SUBSYSTEMS LOADED</span>
+                  <span className="text-[var(--color-accent)] font-semibold">PANEL // ACTIVE</span>
                 </div>
               </div>
             ))}
@@ -326,7 +324,7 @@ export default function TechStackScroll() {
         </div>
 
         {/* Bottom Navigation Hint Bar */}
-        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between border-t border-[var(--color-border)] text-xs font-mono text-[var(--color-text-muted)] z-20 bg-[var(--color-bg)]">
+        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 py-3 flex items-center justify-between border-t border-[var(--color-border)] text-xs font-mono text-[var(--color-text-muted)] shrink-0 z-10 bg-[var(--color-bg)]">
           <div className="flex items-center gap-2">
             <span className="text-[var(--color-accent)] animate-bounce font-bold">↓</span>
             <span>SCROLL DOWN TO TRAVERSE ACROSS ALL 3 CATEGORIES</span>
