@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 // Game Map Checkpoint Stations along the route
@@ -35,15 +35,15 @@ export default function ScrollRobotTrack() {
   return (
     <aside
       aria-label="Autonomous Line Follower Route"
-      className="hidden 2xl:flex fixed left-6 top-0 bottom-0 z-40 pointer-events-none flex-col items-start justify-center"
+      className="hidden xl:flex fixed left-1.5 2xl:left-3 top-0 bottom-0 z-40 pointer-events-none flex-col items-start justify-center select-none"
     >
-      <div className="relative h-[72vh] flex flex-col justify-between pl-3">
+      <div className="relative h-[65vh] flex flex-col justify-between pl-1">
         
         {/* ── Optical Line Follower Track (PCB Trace) ── */}
-        <div className="absolute left-[18px] top-0 bottom-0 w-[4px] bg-[var(--color-border)] rounded-full pointer-events-none">
+        <div className="absolute left-[11px] top-0 bottom-0 w-[2.5px] bg-[var(--color-border)] rounded-full pointer-events-none">
           {/* Active Illuminated Guide Line */}
           <motion.div
-            className="w-full bg-[var(--color-accent)] rounded-full shadow-[0_0_10px_var(--color-accent)]"
+            className="w-full bg-[var(--color-accent)] rounded-full shadow-[0_0_8px_var(--color-accent)]"
             style={{ height: trackHeight }}
           />
         </div>
@@ -51,10 +51,10 @@ export default function ScrollRobotTrack() {
         {/* ── Autonomous Line Follower Bot Traveling On Track ── */}
         <motion.div
           style={{ top: botTop }}
-          className="absolute left-[3px] -translate-y-1/2 z-30 pointer-events-none transition-transform duration-75"
+          className="absolute left-[0px] -translate-y-1/2 z-30 pointer-events-none transition-transform duration-75"
         >
-          {/* Realistic Line Follower Robot Chassis SVG */}
-          <svg width="34" height="42" viewBox="0 0 34 42" className="overflow-visible drop-shadow-[0_0_12px_var(--color-accent)]">
+          {/* Compact Precision Line Follower Robot Chassis SVG */}
+          <svg width="24" height="30" viewBox="0 0 34 42" className="overflow-visible drop-shadow-[0_0_10px_var(--color-accent)]">
             {/* Robot Chassis */}
             <rect x="5" y="6" width="24" height="28" rx="4" fill="var(--color-surface)" stroke="var(--color-accent)" strokeWidth="1.5" />
             
@@ -69,7 +69,7 @@ export default function ScrollRobotTrack() {
             <line x1="12" y1="19" x2="22" y2="19" stroke="var(--color-accent)" strokeWidth="1" />
             <line x1="12" y1="23" x2="22" y2="23" stroke="var(--color-accent)" strokeWidth="1" />
 
-            {/* Front IR Optical Sensors (Glowing down on the line) */}
+            {/* Front IR Optical Sensors */}
             <circle cx="11" cy="37" r="2.5" fill="#F59E0B" className="animate-ping" />
             <circle cx="11" cy="37" r="2" fill="#F59E0B" />
             <circle cx="23" cy="37" r="2.5" fill="#F59E0B" className="animate-ping" />
@@ -95,13 +95,13 @@ export default function ScrollRobotTrack() {
               onClick={() => {
                 document.getElementById(st.id)?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="relative flex items-center group pointer-events-auto cursor-pointer pl-12 py-1.5"
+              className="relative flex items-center group pointer-events-auto cursor-pointer py-1"
             >
-              {/* Checkpoint Node Marker */}
+              {/* Checkpoint Node Marker aligned on optical track */}
               <div
-                className={`absolute left-[13px] w-3.5 h-3.5 rounded-full border-2 transition-all duration-300 flex items-center justify-center ${
+                className={`w-3 h-3 rounded-full border-2 transition-all duration-300 flex items-center justify-center z-20 ${
                   isCurrent
-                    ? "bg-[var(--color-accent)] border-[var(--color-accent)] shadow-[0_0_10px_var(--color-accent)] scale-110"
+                    ? "bg-[var(--color-accent)] border-[var(--color-accent)] shadow-[0_0_8px_var(--color-accent)] scale-125"
                     : isPassed
                     ? "bg-[var(--color-surface)] border-[var(--color-accent)]"
                     : "bg-[var(--color-bg)] border-[var(--color-border)] group-hover:border-[var(--color-accent)]"
@@ -114,25 +114,15 @@ export default function ScrollRobotTrack() {
                 />
               </div>
 
-              {/* Station Label */}
-              <div className="flex items-center gap-2">
-                <span
-                  className={`font-mono text-xs font-bold transition-colors duration-200 ${
-                    isCurrent
-                      ? "text-[var(--color-accent)]"
-                      : isPassed
-                      ? "text-[var(--color-text)]"
-                      : "text-[var(--color-text-light)] group-hover:text-[var(--color-text-muted)]"
-                  }`}
-                >
-                  {st.num} // {st.label}
-                </span>
-
-                {isCurrent && (
-                  <span className="font-mono text-[9px] px-1.5 py-0.5 rounded bg-[var(--color-surface)] border border-[var(--color-accent)] text-[var(--color-accent)] font-bold">
-                    BOT LOC
-                  </span>
-                )}
+              {/* Station Label: Compact floating pill tooltip (never covers page text) */}
+              <div
+                className={`absolute left-5 px-2 py-0.5 rounded border font-mono text-[10px] whitespace-nowrap transition-all duration-200 pointer-events-none shadow-md z-30 ${
+                  isCurrent
+                    ? "opacity-100 bg-[var(--color-surface)] border-[var(--color-accent)] text-[var(--color-accent)] font-bold translate-x-0"
+                    : "opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 bg-[var(--color-surface)]/95 border-[var(--color-border)] text-[var(--color-text)] font-medium"
+                }`}
+              >
+                <span>{st.num} // {st.label}</span>
               </div>
             </div>
           );

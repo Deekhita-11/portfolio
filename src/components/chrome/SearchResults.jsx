@@ -259,7 +259,7 @@ export default function SearchResults({ query, onBackToHome, onSearchQuery, onOp
 
               <div>
                 <span className="text-[var(--color-text-muted)] block font-semibold">DSA Competency</span>
-                <span className="text-[var(--color-text)]">187+ LeetCode Solved (Trees, Graphs, DP)</span>
+                <span className="text-[var(--color-text)]">70+ LeetCode Solved (Trees, Graphs, DP)</span>
               </div>
 
               <div>

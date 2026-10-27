@@ -8,7 +8,6 @@ const FILTERS = [
   { label: "ALL BUILDS", value: "all" },
   { label: "WEB SYSTEMS", value: "web" },
   { label: "DATABASE / DBMS", value: "database" },
-  { label: "ROBOTICS HARDWARE", value: "robotics" },
 ];
 
 function Counter({ value, duration = 2, suffix = "" }) {

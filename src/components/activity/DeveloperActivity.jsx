@@ -453,21 +453,21 @@ export default function DeveloperActivity() {
                   <div className="h-px w-full bg-[var(--color-border)] mb-4" />
 
                   <div className="space-y-3">
-                    <StatRow label="GLOBAL RANK" value={leetcode?.ranking || "145,820"} />
-                    <StatRow label="TOTAL PROBLEMS SOLVED" value={leetcode?.totalSolved || 187} highlight />
+                    <StatRow label="GLOBAL RANK" value={leetcode?.ranking || "2,206,401"} />
+                    <StatRow label="TOTAL PROBLEMS SOLVED" value={leetcode?.totalSolved || 71} highlight />
 
                     <div className="h-px w-full bg-[var(--color-border)] my-2" />
 
-                    <StatRow label="EASY PROBLEMS" value={leetcode?.easySolved || 82} color="#86efac" />
-                    <StatRow label="MEDIUM PROBLEMS" value={leetcode?.mediumSolved || 91} color="#fde047" />
-                    <StatRow label="HARD PROBLEMS" value={leetcode?.hardSolved || 14} color="#fca5a5" />
+                    <StatRow label="EASY PROBLEMS" value={leetcode?.easySolved || 42} color="#86efac" />
+                    <StatRow label="MEDIUM PROBLEMS" value={leetcode?.mediumSolved || 29} color="#fde047" />
+                    <StatRow label="HARD PROBLEMS" value={leetcode?.hardSolved || 0} color="#fca5a5" />
 
                     <div className="h-px w-full bg-[var(--color-border)] my-2" />
 
                     <div className="flex items-center justify-between">
                       <span className="text-[var(--color-text-muted)] tracking-wider text-xs">CURRENT ACTIVE STREAK</span>
                       <span className="font-bold text-[var(--color-accent)]">
-                        {leetcode?.streak || 12} DAYS
+                        {leetcode?.streak || 3} DAYS
                       </span>
                     </div>
                   </div>

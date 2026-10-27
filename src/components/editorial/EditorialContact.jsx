@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { FaGithub, FaLinkedin, FaEnvelope, FaMapMarkerAlt } from 'react-icons/fa';
 import { SiLeetcode } from 'react-icons/si';
 import { FiArrowUpRight, FiCheck } from 'react-icons/fi';
@@ -92,7 +92,7 @@ export default function EditorialContact() {
                 >
                   <span className="flex items-center gap-2">
                     <SiLeetcode size={14} />
-                    <span>LeetCode: @Deekhita (187+ Solved)</span>
+                    <span>LeetCode: @Deekhita (70+ Solved)</span>
                   </span>
                   <FiArrowUpRight size={14} />
                 </a>

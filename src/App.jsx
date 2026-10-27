@@ -5,6 +5,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import CustomCursor from './components/cursor/CustomCursor';
 import RetroNavbar from './components/retro/RetroNavbar';
 import RetroHero from './components/retro/RetroHero';
+import ScrollRobotTrack from './components/ScrollRobotTrack';
 import TechStackScroll from './components/TechStackScroll';
 import RetroProjects from './components/retro/RetroProjects';
 import DeveloperActivity from './components/DeveloperActivity';
@@ -18,6 +19,9 @@ export default function App() {
       {/* Sleek Precision Cursor */}
       <CustomCursor />
 
+      {/* Autonomous Side Line Follower Bot Traveling On Track */}
+      <ScrollRobotTrack />
+
       {/* Main Canvas */}
       <div
         id="top"
@@ -26,8 +30,8 @@ export default function App() {
         {/* Retro Header / Status Bar */}
         <RetroNavbar />
 
-        {/* Arcade Stage Sequence */}
-        <main className="flex-1">
+        {/* Main Stage Sequence */}
+        <main className="flex-1 xl:pl-6 2xl:pl-0">
           {/* Stage 01: Hero Intro */}
           <RetroHero />
 

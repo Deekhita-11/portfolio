@@ -4,13 +4,15 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 import { FiArrowDown, FiFileText, FiTerminal } from "react-icons/fi";
 import { useTheme } from "../../context/ThemeContext";
+import { fetchLeetCodeData } from "../../utils/leetcodeApi";
 
 const DISCIPLINES = ["FULL-STACK WEB SYSTEMS", "ALGORITHMS & DSA", "RELATIONAL DATABASES"];
 
 // Interactive Type-able Terminal Subcomponent
-function InteractiveTerminal() {
+function InteractiveTerminal({ leetcodeStats }) {
   const { theme, toggleTheme } = useTheme();
   const [inputVal, setInputVal] = useState("");
+  const solvedCount = leetcodeStats?.totalSolved ?? 71;
   const [history, setHistory] = useState([
     {
       type: "system",
@@ -29,7 +31,7 @@ function InteractiveTerminal() {
     {
       type: "cmd",
       cmd: "echo $INTERESTS",
-      text: "solving dsa (187+ leetcode), full-stack web architectures, scalable backend systems",
+      text: `solving dsa (${solvedCount}+ leetcode), full-stack web architectures, scalable backend systems`,
     },
     {
       type: "cmd",
@@ -104,7 +106,7 @@ function InteractiveTerminal() {
   • Frontend:       React 18, Vite, Tailwind CSS, HTML5, CSS3
   • Backend & DB:   REST APIs, MySQL (ACID & 3NF), PHP Backend
   • Tools & Env:    Git, GitHub, Linux / Bash, VS Code
-  • Core CS:        Data Structures & Algorithms (187+ Solved), DBMS, OOP`;
+  • Core CS:        Data Structures & Algorithms (${solvedCount}+ Solved), DBMS, OOP`;
         break;
 
       case "projects":
@@ -118,7 +120,7 @@ function InteractiveTerminal() {
 
       case "dsa":
       case "leetcode":
-        outputText = "LeetCode Stats: 187+ problems solved! Strong foundation in Arrays, Two Pointers, Trees, Binary Search, and Dynamic Programming.";
+        outputText = `LeetCode Telemetry: ${solvedCount} problems solved live (Easy: ${leetcodeStats?.easySolved ?? 42}, Medium: ${leetcodeStats?.mediumSolved ?? 29}, Hard: ${leetcodeStats?.hardSolved ?? 0}, Global Rank: #${leetcodeStats?.ranking ?? "2,206,401"})!\nProfile: https://leetcode.com/u/Deekhita/`;
         isAccent = true;
         break;
 
@@ -423,6 +425,21 @@ function InteractiveTerminal() {
 
 export default function RetroHero() {
   const [disciplineIndex, setDisciplineIndex] = useState(0);
+  const [leetcodeStats, setLeetcodeStats] = useState({
+    totalSolved: 71,
+    easySolved: 42,
+    mediumSolved: 29,
+    hardSolved: 0,
+    ranking: "2,206,401",
+  });
+
+  useEffect(() => {
+    fetchLeetCodeData().then((data) => {
+      if (data && data.totalSolved) {
+        setLeetcodeStats(data);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -550,7 +567,7 @@ export default function RetroHero() {
 
             {/* Right Column: Interactive Terminal (6 cols on lg) - SIDE BY SIDE */}
             <div className="lg:col-span-6 w-full">
-              <InteractiveTerminal />
+              <InteractiveTerminal leetcodeStats={leetcodeStats} />
             </div>
 
           </div>
@@ -571,7 +588,7 @@ export default function RetroHero() {
             </div>
             <div className="p-4 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] text-center shadow-sm">
               <span className="text-xs text-[var(--color-text-light)] block mb-1 uppercase font-bold">LEETCODE</span>
-              <span className="font-bold text-base text-[var(--color-accent)]">187+ SOLVED</span>
+              <span className="font-bold text-base text-[var(--color-accent)]">{leetcodeStats?.totalSolved ?? 71}+ SOLVED</span>
             </div>
           </div>
 

@@ -77,8 +77,8 @@ function TerminalPrompt() {
       case "dsa":
       case "leetcode":
         response = [
-          "LEETCODE TELEMETRY: 187+ Problems Solved",
-          "  Easy: 82   |   Medium: 91   |   Hard: 14",
+          "LEETCODE TELEMETRY: 70+ Problems Solved",
+          "  Easy: 42   |   Medium: 29   |   Hard: 0",
           "Core competencies: Graphs (BFS/DFS), Trees, Dynamic Programming,",
           "Monotonic Queues, Sliding Window, and Relational Schema 3NF.",
         ];
@@ -245,7 +245,7 @@ function TerminalPrompt() {
                 <p
                   key={lIdx}
                   className={
-                    line.startsWith("Available") || line.startsWith("[") || line.includes("187+")
+                    line.startsWith("Available") || line.startsWith("[") || line.includes("70+") || line.includes("Solved")
                       ? "text-[var(--color-accent)] font-semibold"
                       : "text-[var(--color-text)] opacity-90"
                   }

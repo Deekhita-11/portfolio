@@ -15,21 +15,32 @@ function AnimatedCounter({ value, duration = 800 }) {
   const inView = useInView(ref, { once: true, margin: "-50px" });
   const [display, setDisplay] = useState(0);
 
+  const numericValue =
+    typeof value === "string"
+      ? parseInt(value.replace(/,/g, ""), 10)
+      : typeof value === "number"
+      ? value
+      : null;
+
   useEffect(() => {
-    if (!inView || value == null) return;
+    if (!inView || numericValue == null || isNaN(numericValue)) return;
     let raf;
     const start = performance.now();
     const animate = (now) => {
       const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-      setDisplay(Math.round(eased * value));
+      setDisplay(Math.round(eased * numericValue));
       if (progress < 1) raf = requestAnimationFrame(animate);
     };
     raf = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(raf);
-  }, [inView, value, duration]);
+  }, [inView, numericValue, duration]);
 
-  return <span ref={ref}>{value != null ? display.toLocaleString() : "—"}</span>;
+  if (numericValue == null || isNaN(numericValue)) {
+    return <span ref={ref}>{value ?? "—"}</span>;
+  }
+
+  return <span ref={ref}>{display.toLocaleString()}</span>;
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -203,10 +214,11 @@ function LeetCodeCard({ data, loading }) {
             LEETCODE / 01
           </span>
         </div>
-        <div className="flex gap-1.5">
-          <div className="w-2 h-2 rounded-full bg-[var(--color-border)]" />
-          <div className="w-2 h-2 rounded-full bg-[var(--color-border)]" />
-          <div className="w-2 h-2 rounded-full bg-[var(--color-accent)]" />
+        <div className="flex items-center gap-2">
+          <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            LIVE PROFILE
+          </span>
         </div>
       </div>
 
@@ -228,8 +240,8 @@ function LeetCodeCard({ data, loading }) {
           </div>
         ) : (
           <div className="space-y-2.5 flex-1">
-            <StatRow label="RANK" value={data?.ranking} />
-            <StatRow label="SOLVED" value={data?.totalSolved} highlight />
+            <StatRow label="GLOBAL RANK" value={data?.ranking} />
+            <StatRow label="PROBLEMS SOLVED" value={data?.totalSolved} highlight />
 
             <div className="w-full h-px bg-[var(--color-border)] my-3" />
 
@@ -237,11 +249,36 @@ function LeetCodeCard({ data, loading }) {
             <StatRow label="MEDIUM" value={data?.mediumSolved} color="#facc15" />
             <StatRow label="HARD" value={data?.hardSolved} color="#f87171" />
 
-            {data?.contestRating != null && (
+            {data?.totalSubmissions != null && (
               <>
                 <div className="w-full h-px bg-[var(--color-border)] my-3" />
-                <StatRow label="CONTEST RATING" value={data.contestRating} />
+                <StatRow label="TOTAL SUBMISSIONS" value={data.totalSubmissions} />
               </>
+            )}
+
+            {/* Recent Solved Problems Feed */}
+            {data?.recentSubmissions && data.recentSubmissions.length > 0 && (
+              <div className="mt-4 pt-3 border-t border-[var(--color-border)]">
+                <div className="flex items-center justify-between text-[10px] text-[var(--color-text-muted)] mb-2 font-bold tracking-wider">
+                  <span>RECENT SUBMISSIONS</span>
+                  <span className="text-[var(--color-accent)] font-mono">C++</span>
+                </div>
+                <div className="space-y-1.5">
+                  {data.recentSubmissions.slice(0, 3).map((sub, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between py-1 px-2 rounded bg-[var(--color-bg)] border border-[var(--color-border)] text-[11px]"
+                    >
+                      <span className="truncate max-w-[190px] text-[var(--color-text)]">
+                        {sub.title}
+                      </span>
+                      <span className="text-[9px] px-1.5 py-0.5 rounded font-mono font-semibold text-emerald-400 bg-emerald-500/10">
+                        {sub.statusDisplay === "Accepted" ? "ACCEPTED" : sub.statusDisplay}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             )}
           </div>
         )}
@@ -254,7 +291,7 @@ function LeetCodeCard({ data, loading }) {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-[var(--color-border)] bg-[var(--color-bg)] text-[var(--color-text)] font-mono text-xs font-bold hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors w-full justify-center"
           >
-            VIEW LEETCODE →
+            <SiLeetcode size={14} className="text-[var(--color-accent)]" /> VERIFY LIVE ON LEETCODE →
           </a>
         </div>
       </div>

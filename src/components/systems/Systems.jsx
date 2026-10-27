@@ -17,7 +17,7 @@ const PANELS = [
     title: "PROBLEM SOLVING",
     items: [
       "Data Structures and Algorithms analysis & pattern recognition",
-      "Time and space complexity optimizations (187+ LeetCode Solved)",
+      "Time and space complexity optimizations (70+ LeetCode Solved)",
       "Mathematical modeling, rolling averages & dynamic state machines",
     ],
     tech: "C++ · Python · DSA · Relational Algebra",

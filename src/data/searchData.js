@@ -25,12 +25,12 @@ export const searchDatabase = [
     category: 'Skills',
     title: 'C++ Programming & Problem Solving',
     displayUrl: 'deekhita.dev/skills/cpp',
-    snippet: 'High-performance algorithm solving and software systems. Used in solving 187+ LeetCode algorithmic problems and efficient memory management.',
+    snippet: 'High-performance algorithm solving and software systems. Used in solving 70+ LeetCode algorithmic problems and efficient memory management.',
     tags: ['C++', 'STL', 'Algorithms', 'DSA'],
     details: {
       domain: 'Languages',
       level: 'Advanced',
-      usedIn: ['187+ LeetCode Problems', 'System Algorithms & Problem Solving'],
+      usedIn: ['70+ LeetCode Problems', 'System Algorithms & Problem Solving'],
     }
   },
   {
@@ -107,13 +107,13 @@ export const searchDatabase = [
     id: 'skill-dsa',
     type: 'skill',
     category: 'Skills',
-    title: 'Data Structures & Algorithms (187+ Solved)',
+    title: 'Data Structures & Algorithms (70+ Solved)',
     displayUrl: 'deekhita.dev/skills/dsa',
-    snippet: 'Trees, Graphs (BFS/DFS), Dynamic Programming, Binary Search, Sliding Window, Monotonic Queues. 187+ problems solved on LeetCode.',
+    snippet: 'Trees, Graphs (BFS/DFS), Dynamic Programming, Binary Search, Sliding Window, Monotonic Queues. 70+ problems solved on LeetCode.',
     tags: ['DSA', 'LeetCode', 'Trees', 'Graphs', 'DP', 'Time Complexity'],
     details: {
       domain: 'Core Engine',
-      level: 'Advanced (187+ Solved: 82 Easy, 91 Med, 14 Hard)',
+      level: 'Advanced (70+ Solved: 42 Easy, 29 Med)',
       usedIn: ['LeetCode profile: @Deekhita', 'Algorithmic Optimization'],
     }
   },

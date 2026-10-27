@@ -21,7 +21,7 @@ const projectMapping = {
   "Java": ["Object-Oriented Applications", "DSA"],
   "REST APIs": ["Blood Management System", "Gadget Genie"],
   "Linux / Bash": ["Dev Workstation", "Automation Scripts"],
-  "C/C++": ["187+ LeetCode Solutions", "Algorithm Engineering"],
+  "C/C++": ["LeetCode Problem Solving", "Algorithm Engineering"],
   "Git & GitHub": ["All Projects", "Version Control"]
 };
 

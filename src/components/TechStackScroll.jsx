@@ -11,18 +11,19 @@ import {
   SiGit,
   SiGithub,
   SiLinux,
+  SiHtml5,
 } from "react-icons/si";
 import { TbBinaryTree, TbApi } from "react-icons/tb";
 import { FaDatabase, FaCubes, FaJava } from "react-icons/fa";
 import { VscCode } from "react-icons/vsc";
 
-// The 4 Categories with modern software engineering skills and brand icons
+// The 3 Consolidated Categories with modern software engineering skills and brand icons
 const TECH_CATEGORIES = [
   {
     num: "01",
-    category: "LANGUAGES & SYNTAX",
-    badge: "FOUNDATION",
-    summary: "High-performance algorithms, system logic & modern web scripting",
+    category: "LANGUAGES & FOUNDATION",
+    badge: "COMPUTATIONAL",
+    summary: "High-performance algorithms, system logic & object-oriented programming",
     skills: [
       {
         name: "C++",
@@ -30,7 +31,7 @@ const TECH_CATEGORIES = [
         brandColor: "#00599C", // Official C++ Blue
         brandBg: "rgba(0, 89, 156, 0.14)",
         role: "COMPETITIVE & SYSTEMS",
-        desc: "High-performance algorithm solving (187+ LeetCode) & memory-efficient logic",
+        desc: "High-performance algorithm solving (70+ LeetCode) & memory-efficient logic",
       },
       {
         name: "Java",
@@ -62,7 +63,7 @@ const TECH_CATEGORIES = [
     num: "02",
     category: "FRONTEND ARCHITECTURE",
     badge: "CLIENT RIG",
-    summary: "Modern reactive component trees & design token frameworks",
+    summary: "Modern reactive component trees, responsive tokens & styling frameworks",
     skills: [
       {
         name: "React 18",
@@ -88,13 +89,21 @@ const TECH_CATEGORIES = [
         role: "DESIGN SYSTEMS",
         desc: "Design token systems, responsive utility grids & layouts",
       },
+      {
+        name: "HTML5 & Modern CSS",
+        icon: SiHtml5,
+        brandColor: "#E34F26", // Official HTML5 Orange
+        brandBg: "rgba(227, 79, 38, 0.14)",
+        role: "STANDARDS & DOM",
+        desc: "Semantic document layouts, accessible typography & modern styling",
+      },
     ],
   },
   {
     num: "03",
-    category: "CORE ENGINE & MODELS",
-    badge: "ALGORITHMS",
-    summary: "Problem solving, data structures and relational persistence",
+    category: "BACKEND, DATA & TOOLCHAIN",
+    badge: "CORE & CLOUD",
+    summary: "Data structures, relational persistence, REST endpoints & git pipelines",
     skills: [
       {
         name: "Data Structures & Algorithms",
@@ -102,16 +111,8 @@ const TECH_CATEGORIES = [
         brandColor: "var(--color-accent)", // Accent Tree/Algorithm
         brandBg: "rgba(56, 189, 248, 0.14)",
         role: "PROBLEM SOLVING",
-        desc: "Trees, Graphs (BFS/DFS), Dynamic Programming (187+ Solved)",
+        desc: "Trees, Graphs (BFS/DFS), Dynamic Programming (70+ Solved)",
         isTree: true,
-      },
-      {
-        name: "Object-Oriented Programming",
-        icon: FaCubes,
-        brandColor: "#A855F7", // Purple Architecture
-        brandBg: "rgba(168, 85, 247, 0.14)",
-        role: "SOFTWARE DESIGN",
-        desc: "Encapsulation, modularity, abstraction & clean architecture patterns",
       },
       {
         name: "DBMS & Relational Data",
@@ -120,22 +121,6 @@ const TECH_CATEGORIES = [
         brandBg: "rgba(68, 121, 161, 0.14)",
         role: "DATABASE",
         desc: "MySQL InnoDB, normalization (3NF), ACID transactions & indexes",
-      },
-    ],
-  },
-  {
-    num: "04",
-    category: "TOOLCHAIN & CLOUD ENVIRONMENT",
-    badge: "WORKBENCH",
-    summary: "Version control, REST APIs, UNIX shell workflows & modern IDE suites",
-    skills: [
-      {
-        name: "Git & GitHub",
-        icon: SiGithub,
-        brandColor: "var(--color-text)", // Adapts to theme
-        brandBg: "rgba(148, 163, 184, 0.14)",
-        role: "VERSION CONTROL",
-        desc: "Distributed version control, atomic branching & production pipelines",
       },
       {
         name: "REST APIs",
@@ -146,20 +131,20 @@ const TECH_CATEGORIES = [
         desc: "Stateless JSON endpoints, schema contracts, HTTP lifecycle & CORS",
       },
       {
-        name: "Linux / Bash",
+        name: "Git & GitHub",
+        icon: SiGithub,
+        brandColor: "var(--color-text)", // Adapts to theme
+        brandBg: "rgba(148, 163, 184, 0.14)",
+        role: "VERSION CONTROL",
+        desc: "Distributed version control, atomic branching & production pipelines",
+      },
+      {
+        name: "Linux / Bash & VS Code",
         icon: SiLinux,
         brandColor: "#FCC624", // Linux Gold
         brandBg: "rgba(252, 198, 36, 0.14)",
-        role: "UNIX & WORKSPACE",
-        desc: "Shell scripting, command line utilities & workstation automation",
-      },
-      {
-        name: "VS Code",
-        icon: VscCode,
-        brandColor: "#007ACC", // Official VS Code Blue
-        brandBg: "rgba(0, 122, 204, 0.14)",
-        role: "DEVELOPER IDE",
-        desc: "Modern development suite, integrated debuggers & productive workspace configurations",
+        role: "DEV ENVIRONMENT",
+        desc: "Shell scripting, command line utilities & modern debugger workspace",
       },
     ],
   },
@@ -174,8 +159,8 @@ export default function TechStackScroll() {
     offset: ["start start", "end end"],
   });
 
-  // Shifts categories across the screen as user scrolls down
-  const xTransform = useTransform(scrollYProgress, [0, 1], ["0%", "-62%"]);
+  // Shifts 3 categories across the screen as user scrolls down
+  const xTransform = useTransform(scrollYProgress, [0, 1], ["0%", "-48%"]);
   const progressPercent = useTransform(scrollYProgress, [0, 1], [0, 100]);
 
   return (
@@ -183,7 +168,7 @@ export default function TechStackScroll() {
       id="skills"
       ref={containerRef}
       className="relative w-full"
-      style={{ height: "320vh" }}
+      style={{ height: "260vh" }}
     >
       {/* ── Sticky Viewport ── */}
       <div className="sticky top-0 h-screen w-full flex flex-col justify-between overflow-hidden bg-[var(--color-bg)] border-y border-[var(--color-border)]">
@@ -344,10 +329,10 @@ export default function TechStackScroll() {
         <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 py-4 flex items-center justify-between border-t border-[var(--color-border)] text-xs font-mono text-[var(--color-text-muted)] z-20 bg-[var(--color-bg)]">
           <div className="flex items-center gap-2">
             <span className="text-[var(--color-accent)] animate-bounce font-bold">↓</span>
-            <span>SCROLL DOWN TO TRAVERSE ACROSS ALL 4 CATEGORIES</span>
+            <span>SCROLL DOWN TO TRAVERSE ACROSS ALL 3 CATEGORIES</span>
           </div>
           <span className="text-xs text-[var(--color-text-light)] hidden sm:inline">
-            12 PRODUCTION TECHNOLOGIES WITH BRAND LOGOS
+            13 PRODUCTION TECHNOLOGIES WITH BRAND LOGOS
           </span>
         </div>
 

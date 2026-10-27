@@ -21,7 +21,7 @@ export default function TechStack() {
   const [activeInfo, setActiveInfo] = useState({
     title: "C++",
     layer: "FOUNDATION",
-    desc: "Primary language for high-performance algorithm solving (187+ LeetCode) and microcontroller systems.",
+    desc: "Primary language for high-performance algorithm solving (70+ LeetCode) and microcontroller systems.",
   });
 
   // Vertical scroll translates into horizontal translation
@@ -113,7 +113,7 @@ export default function TechStack() {
                       setActiveInfo({
                         title: "C++",
                         layer: "FOUNDATION",
-                        desc: "High-performance algorithm solving (187+ LeetCode), memory layout, and Arduino hardware controllers.",
+                        desc: "High-performance algorithm solving (70+ LeetCode), memory layout, and Arduino hardware controllers.",
                       })
                     }
                     className="p-4 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all cursor-pointer group text-center"
@@ -289,7 +289,7 @@ export default function TechStack() {
                   <div
                     onMouseEnter={() =>
                       setActiveInfo({
-                        title: "DSA (187+ Solved)",
+                        title: "DSA (70+ Solved)",
                         layer: "CORE ENGINE",
                         desc: "Trees, Graphs (BFS/DFS), Dynamic Programming, Binary Search, Sliding Window, and Monotonic Stacks.",
                       })
@@ -300,7 +300,7 @@ export default function TechStack() {
                       <TbBinaryTree size={24} className="text-[#3B82F6]" />
                     </div>
                     <span className="font-heading font-bold text-sm text-[var(--color-text)] block">DSA</span>
-                    <span className="text-[11px] font-mono text-[var(--color-accent)] block mt-1">187+ Solved</span>
+                    <span className="text-[11px] font-mono text-[var(--color-accent)] block mt-1">70+ Solved</span>
                   </div>
 
                   {/* OOP */}

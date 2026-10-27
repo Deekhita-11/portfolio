@@ -1,8 +1,8 @@
 // ─── LeetCode API Integration ───────────────────────────────────
-const LEETCODE_USERNAME = "Deekhita";
+export const LEETCODE_USERNAME = "Deekhita";
 
-const CACHE_KEY = "portfolio_leetcode_cache_v3";
-const CACHE_TTL = 30 * 60 * 1000; // 30 minutes
+const CACHE_KEY = "portfolio_leetcode_live_v5";
+const CACHE_TTL = 15 * 60 * 1000; // 15 minutes
 
 function getCache() {
   try {
@@ -25,8 +25,8 @@ function setCache(data) {
 }
 
 /**
- * Fetches LeetCode stats for Deekhita:
- * Solved: 187, Easy: 82, Medium: 91, Hard: 14, Streak: 12 days.
+ * Fetches real live LeetCode stats for Deekhita:
+ * Profile: https://leetcode.com/u/Deekhita/
  */
 export async function fetchLeetCodeData(username = LEETCODE_USERNAME) {
   const cached = getCache();
@@ -34,52 +34,96 @@ export async function fetchLeetCodeData(username = LEETCODE_USERNAME) {
 
   const fallback = {
     username,
-    totalSolved: 187,
-    easySolved: 82,
-    mediumSolved: 91,
-    hardSolved: 14,
-    ranking: "145,820",
-    contestRating: 1465,
-    streak: 12,
+    totalSolved: 71,
+    easySolved: 42,
+    mediumSolved: 29,
+    hardSolved: 0,
+    ranking: "2,206,401",
+    totalSubmissions: 131,
+    totalQuestions: 4095,
+    streak: 3,
     activitySparkline: [2, 3, 1, 4, 2, 5, 3, 6, 8, 5, 7, 9, 6, 8],
+    recentSubmissions: [
+      { title: "Rotting Oranges", statusDisplay: "Accepted", lang: "cpp" },
+      { title: "Longest Palindromic Substring", statusDisplay: "Accepted", lang: "cpp" },
+      { title: "Longest Substring Without Repeating Characters", statusDisplay: "Accepted", lang: "cpp" },
+      { title: "Same Tree", statusDisplay: "Accepted", lang: "cpp" },
+      { title: "Add Two Numbers", statusDisplay: "Accepted", lang: "cpp" },
+    ],
     loaded: true,
   };
 
   try {
-    const [solvedRes, profileRes] = await Promise.allSettled([
-      fetch(`https://alfa-leetcode-api.onrender.com/${username}/solved`),
-      fetch(`https://alfa-leetcode-api.onrender.com/${username}`),
-    ]);
+    // 1. Fetch live comprehensive profile from Alfa LeetCode API
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 6000);
 
-    const solved =
-      solvedRes.status === "fulfilled" && solvedRes.value.ok
-        ? await solvedRes.value.json()
-        : null;
+    const profileRes = await fetch(
+      `https://alfa-leetcode-api.onrender.com/userProfile/${username}`,
+      { signal: controller.signal }
+    );
+    clearTimeout(timeoutId);
 
-    const profile =
-      profileRes.status === "fulfilled" && profileRes.value.ok
-        ? await profileRes.value.json()
-        : null;
+    if (profileRes.ok) {
+      const profile = await profileRes.json();
 
-    const result = {
-      username,
-      totalSolved: solved?.solvedProblem ?? 187,
-      easySolved: solved?.easySolved ?? 82,
-      mediumSolved: solved?.mediumSolved ?? 91,
-      hardSolved: solved?.hardSolved ?? 14,
-      ranking: profile?.ranking ? profile.ranking.toLocaleString() : "145,820",
-      contestRating: profile?.contestRating
-        ? Math.round(profile.contestRating)
-        : 1465,
-      streak: 12,
-      activitySparkline: [2, 3, 1, 4, 2, 5, 3, 6, 8, 5, 7, 9, 6, 8],
-      loaded: true,
-    };
+      const totalSolved = profile.totalSolved ?? fallback.totalSolved;
+      const easySolved = profile.easySolved ?? fallback.easySolved;
+      const mediumSolved = profile.mediumSolved ?? fallback.mediumSolved;
+      const hardSolved = profile.hardSolved ?? fallback.hardSolved;
+      const ranking = profile.ranking
+        ? profile.ranking.toLocaleString()
+        : fallback.ranking;
 
-    setCache(result);
-    return result;
+      const totalSubmissions =
+        profile.totalSubmissions?.[0]?.submissions ??
+        profile.matchedUserStats?.totalSubmissionNum?.[0]?.submissions ??
+        fallback.totalSubmissions;
+
+      const recentSubmissions =
+        Array.isArray(profile.recentSubmissions) && profile.recentSubmissions.length > 0
+          ? profile.recentSubmissions
+          : fallback.recentSubmissions;
+
+      const result = {
+        username,
+        totalSolved,
+        easySolved,
+        mediumSolved,
+        hardSolved,
+        ranking,
+        totalSubmissions,
+        totalQuestions: profile.totalQuestions ?? 4095,
+        streak: 3,
+        activitySparkline: [2, 3, 1, 4, 2, 5, 3, 6, 8, 5, 7, 9, 6, 8],
+        recentSubmissions,
+        loaded: true,
+      };
+
+      setCache(result);
+      return result;
+    }
+
+    // 2. Fallback to /solved endpoint if userProfile didn't respond with 200
+    const solvedRes = await fetch(`https://alfa-leetcode-api.onrender.com/${username}/solved`);
+    if (solvedRes.ok) {
+      const solved = await solvedRes.json();
+      const result = {
+        ...fallback,
+        totalSolved: solved.solvedProblem ?? fallback.totalSolved,
+        easySolved: solved.easySolved ?? fallback.easySolved,
+        mediumSolved: solved.mediumSolved ?? fallback.mediumSolved,
+        hardSolved: solved.hardSolved ?? fallback.hardSolved,
+        loaded: true,
+      };
+      setCache(result);
+      return result;
+    }
+
+    return fallback;
   } catch (err) {
-    console.warn("[Portfolio] LeetCode fetch failed:", err);
+    console.warn("[Portfolio] LeetCode live fetch fallback used:", err);
     return fallback;
   }
 }
+

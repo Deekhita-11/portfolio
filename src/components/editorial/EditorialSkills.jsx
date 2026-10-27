@@ -17,10 +17,10 @@ import { VscCode } from 'react-icons/vsc';
 
 const SKILL_SECTIONS = [
   {
-    category: 'LANGUAGES & SYNTAX',
+    category: 'LANGUAGES & FOUNDATIONS',
     num: '01',
     skills: [
-      { name: 'C++', icon: SiCplusplus, desc: 'High-performance algorithm solving (187+ LeetCode) & system logic', role: 'Competitive & Systems' },
+      { name: 'C++', icon: SiCplusplus, desc: 'High-performance algorithm solving (70+ LeetCode) & system logic', role: 'Competitive & Systems' },
       { name: 'Java', icon: FaJava, desc: 'Robust object-oriented programming, class design & JVM multithreading', role: 'OOP & Enterprise' },
       { name: 'Python', icon: SiPython, desc: 'Data logic testing, script automation & algorithm prototyping', role: 'Automation' },
       { name: 'JavaScript (ES6+)', icon: SiJavascript, desc: 'Asynchronous event loops, DOM engines & full-stack logic', role: 'Web Logic' },
@@ -36,22 +36,14 @@ const SKILL_SECTIONS = [
     ],
   },
   {
-    category: 'CORE ENGINE & MODELS',
+    category: 'BACKEND, DATA & DEV TOOLCHAIN',
     num: '03',
     skills: [
-      { name: 'Data Structures & Algorithms', icon: TbBinaryTree, desc: 'Trees, Graphs (BFS/DFS), Dynamic Programming (187+ Solved)', role: 'Problem Solving' },
-      { name: 'Object-Oriented Programming', icon: FaCubes, desc: 'Encapsulation, modularity, abstraction & design patterns', role: 'Software Design' },
+      { name: 'Data Structures & Algorithms', icon: TbBinaryTree, desc: 'Trees, Graphs (BFS/DFS), Dynamic Programming (70+ Solved)', role: 'Problem Solving' },
       { name: 'DBMS & Relational Data', icon: FaDatabase, desc: 'MySQL InnoDB, normalization (3NF), ACID transactions & indexes', role: 'Database' },
-    ],
-  },
-  {
-    category: 'TOOLCHAIN & ENVIRONMENT',
-    num: '04',
-    skills: [
-      { name: 'Git & GitHub', icon: SiGithub, desc: 'Distributed version control, atomic branching & production pipelines', role: 'Version Control' },
       { name: 'REST APIs', icon: TbApi, desc: 'REST endpoint testing, schema contract validation & stateless services', role: 'Network Architecture' },
-      { name: 'Linux / Bash', icon: SiLinux, desc: 'UNIX shell scripting, command-line utilities & developer tooling', role: 'System Environment' },
-      { name: 'VS Code', icon: VscCode, desc: 'Integrated debuggers, linting pipelines & workspace extensions', role: 'Developer Suite' },
+      { name: 'Git & GitHub', icon: SiGithub, desc: 'Distributed version control, atomic branching & production pipelines', role: 'Version Control' },
+      { name: 'Linux / Bash & VS Code', icon: SiLinux, desc: 'UNIX shell scripting, command-line utilities & developer tooling', role: 'Developer Environment' },
     ],
   },
 ];

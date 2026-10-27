@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { SiLeetcode } from 'react-icons/si';
@@ -56,7 +56,7 @@ export default function EditorialHero() {
             </div>
             <div className="flex items-center justify-between pb-1">
               <span className="uppercase text-[var(--color-text-light)]">DSA LOG</span>
-              <span className="font-semibold text-[var(--color-text)]">187+ LeetCode Solved</span>
+              <span className="font-semibold text-[var(--color-text)]">70+ LeetCode Solved</span>
             </div>
           </div>
 

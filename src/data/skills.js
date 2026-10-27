@@ -19,20 +19,7 @@ import { VscCode } from "react-icons/vsc";
 export const skillCategories = [
   {
     number: "01",
-    label: "FRONTEND",
-    summary: "React · JavaScript · Tailwind CSS · Vite",
-    skills: [
-      { name: "React", icon: SiReact },
-      { name: "JavaScript", icon: SiJavascript },
-      { name: "Tailwind CSS", icon: SiTailwindcss },
-      { name: "HTML5", icon: SiHtml5 },
-      { name: "CSS3", icon: FaCss3Alt },
-      { name: "Vite", icon: SiVite },
-    ],
-  },
-  {
-    number: "02",
-    label: "PROGRAMMING",
+    label: "LANGUAGES & FOUNDATIONS",
     summary: "C++ · Java · Python · JavaScript · PHP",
     skills: [
       { name: "C++", icon: SiCplusplus },
@@ -43,21 +30,24 @@ export const skillCategories = [
     ],
   },
   {
-    number: "03",
-    label: "BACKEND & DATA",
-    summary: "REST APIs · MySQL · Database Design · Relational Systems",
+    number: "02",
+    label: "FRONTEND ARCHITECTURE",
+    summary: "React 18 · Vite · Tailwind CSS · HTML5 · CSS3",
     skills: [
-      { name: "REST APIs", icon: TbApi },
-      { name: "MySQL", icon: SiMysql },
-      { name: "PHP Backend", icon: SiPhp },
-      { name: "Relational Modeling", icon: null },
+      { name: "React", icon: SiReact },
+      { name: "Vite", icon: SiVite },
+      { name: "Tailwind CSS", icon: SiTailwindcss },
+      { name: "HTML5", icon: SiHtml5 },
+      { name: "CSS3", icon: FaCss3Alt },
     ],
   },
   {
-    number: "04",
-    label: "TOOLS & ENVIRONMENT",
-    summary: "Git · GitHub · Linux/Bash · VS Code",
+    number: "03",
+    label: "CORE CS, DATA & TOOLS",
+    summary: "REST APIs · MySQL · Git & GitHub · Linux · VS Code",
     skills: [
+      { name: "REST APIs", icon: TbApi },
+      { name: "MySQL", icon: SiMysql },
       { name: "Git", icon: SiGit },
       { name: "GitHub", icon: SiGithub },
       { name: "Linux / Bash", icon: SiLinux },

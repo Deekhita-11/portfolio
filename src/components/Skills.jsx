@@ -31,7 +31,7 @@ export default function Skills() {
               </h2>
             </div>
             <div className="font-mono text-xs text-[var(--color-text-muted)]">
-              INDEX: 4 SUBSYSTEMS // VERIFIED
+              INDEX: 3 SUBSYSTEMS // VERIFIED
             </div>
           </div>
 

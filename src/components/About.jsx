@@ -18,7 +18,7 @@ const DOMAIN_CARDS = [
     num: "03",
     title: "ALGORITHMS & CORE CS",
     desc: "Rigorous problem solving with optimal time/space complexity, trees, graphs & dynamic programming",
-    tech: ["C++", "Python", "187+ LeetCode", "Data Structures", "OOP & DBMS"]
+    tech: ["C++", "Java", "LeetCode (70+ Solved)", "Data Structures", "OOP & DBMS"]
   }
 ];
 
