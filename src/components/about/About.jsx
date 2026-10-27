@@ -30,7 +30,7 @@ const EDUCATION = [
 const ACHIEVEMENTS = [
   {
     title: "ICORT 2025 — ITR-DRDO Chandipur",
-    desc: "2nd Position at Student Project Exhibition, 4th International Conference on Range Technology for Autonomous Line Follower Robot.",
+    desc: "2nd Position at Student Project Exhibition, 4th International Conference on Range Technology for student engineering prototype.",
     badge: "DRDO EXHIBITION 2ND",
   },
   {

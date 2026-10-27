@@ -10,11 +10,10 @@ import {
   SiMysql,
   SiGit,
   SiGithub,
-  SiPostman,
   SiArduino,
 } from "react-icons/si";
 import { TbBinaryTree } from "react-icons/tb";
-import { FaDatabase, FaCubes, FaArrowRight, FaCode, FaCheckCircle, FaLaptopCode, FaRocket } from "react-icons/fa";
+import { FaDatabase, FaCubes, FaArrowRight, FaCode, FaCheckCircle, FaLaptopCode, FaRocket, FaJava } from "react-icons/fa";
 import { VscCode } from "react-icons/vsc";
 
 export default function TechStack() {
@@ -409,21 +408,21 @@ export default function TechStack() {
                     <span className="font-heading font-bold text-xs text-[var(--color-text)] block">VS Code</span>
                   </div>
 
-                  {/* Postman */}
+                  {/* Java */}
                   <div
                     onMouseEnter={() =>
                       setActiveInfo({
-                        title: "Postman",
-                        layer: "TOOLCHAIN",
-                        desc: "REST endpoint verification, payload mock tests, and status code assertion testing.",
+                        title: "Java",
+                        layer: "LANGUAGES",
+                        desc: "Object-oriented software systems, JVM architecture, class design, and algorithmic problem solving.",
                       })
                     }
                     className="p-3 rounded-xl bg-[var(--color-bg)] border border-[var(--color-border)] hover:border-[var(--color-accent)] transition-all cursor-pointer group text-center"
                   >
                     <div className="w-10 h-10 mx-auto rounded-lg bg-[var(--color-surface)] border border-[var(--color-border)] flex items-center justify-center mb-2 group-hover:scale-110 transition-all">
-                      <SiPostman size={20} className="text-[#FF6C37]" />
+                      <FaJava size={20} className="text-[#EA2D2E]" />
                     </div>
-                    <span className="font-heading font-bold text-xs text-[var(--color-text)] block">Postman</span>
+                    <span className="font-heading font-bold text-xs text-[var(--color-text)] block">Java</span>
                   </div>
 
                   {/* GitHub */}
@@ -514,10 +513,10 @@ export default function TechStack() {
                   >
                     <div>
                       <span className="font-heading font-bold text-sm text-[var(--color-text)] block">
-                        Line Follower Bot (ICORT 2025 DRDO)
+                        Period Tracker
                       </span>
                       <span className="text-xs text-[var(--color-text-muted)] font-mono">
-                        Arduino C/C++ · PID Controller · Sensors
+                        PHP · MySQL · JavaScript · Health Utility
                       </span>
                     </div>
                     <span className="text-xs font-mono text-[var(--color-accent)] font-semibold">VIEW ↗</span>

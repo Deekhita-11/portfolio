@@ -5,7 +5,7 @@ import { SiLeetcode } from "react-icons/si";
 import { FiArrowDown, FiFileText, FiTerminal } from "react-icons/fi";
 import { useTheme } from "../../context/ThemeContext";
 
-const DISCIPLINES = ["WEB SYSTEMS", "AUTONOMOUS ROBOTICS", "ALGORITHMS & DSA"];
+const DISCIPLINES = ["FULL-STACK WEB SYSTEMS", "ALGORITHMS & DSA", "RELATIONAL DATABASES"];
 
 // Interactive Type-able Terminal Subcomponent
 function InteractiveTerminal() {
@@ -29,7 +29,7 @@ function InteractiveTerminal() {
     {
       type: "cmd",
       cmd: "echo $INTERESTS",
-      text: "solving dsa (187+ leetcode), full-stack web architectures, hardware kinematics",
+      text: "solving dsa (187+ leetcode), full-stack web architectures, scalable backend systems",
     },
     {
       type: "cmd",
@@ -46,6 +46,12 @@ function InteractiveTerminal() {
   ]);
   const [historyIndex, setHistoryIndex] = useState(-1);
   const inputRef = useRef(null);
+  const terminalEndRef = useRef(null);
+
+  // Auto-scroll to bottom of output whenever history updates
+  useEffect(() => {
+    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [history]);
 
   const executeCommand = (raw) => {
     const trimmed = raw.trim();
@@ -68,16 +74,16 @@ function InteractiveTerminal() {
 `AVAILABLE COMMANDS:
   whoami      - Developer profile & current status
   about       - Builder philosophy & problem-solving approach
-  skills      - Tech stack (Web, Embedded & Algorithms)
-  projects    - Featured applications & hardware systems
-  dsa         - LeetCode stats & algorithm focus
+  skills      - Tech stack (Frontend, Backend, Tools & Algorithms)
+  projects    - Production web applications & software builds
+  dsa         - LeetCode stats & algorithmic problem solving
   education   - Academic record & CGPA
   leadership  - RobogeniX coordinator & club roles
-  contact     - Direct contact channels
+  contact     - Direct contact channels & links
   goto <sec>  - Navigate page (projects, skills, about, contact)
   theme       - Toggle dark / light theme
   date        - Current system timestamp
-  cat <file>  - Read log (e.g., cat resume, cat focus)
+  cat <file>  - Read log (e.g., cat resume, cat focus, cat skills)
   clear       - Clear terminal history`;
         break;
 
@@ -94,19 +100,19 @@ function InteractiveTerminal() {
       case "stack":
         outputText =
 `TECHNICAL MATRIX:
-  • Languages:   C/C++, Java, JavaScript, PHP, SQL
-  • Web Systems: React, Vite, Tailwind CSS, REST APIs, MySQL
-  • Hardware:    Arduino, ESP32, Sensor Arrays, L298N Motor Driver
-  • Core CS:     Data Structures & Algorithms, DBMS, OOP, Git`;
+  • Languages:      C/C++, Java, JavaScript (ES6+), Python, PHP, SQL
+  • Frontend:       React 18, Vite, Tailwind CSS, HTML5, CSS3
+  • Backend & DB:   REST APIs, MySQL (ACID & 3NF), PHP Backend
+  • Tools & Env:    Git, GitHub, Linux / Bash, VS Code
+  • Core CS:        Data Structures & Algorithms (187+ Solved), DBMS, OOP`;
         break;
 
       case "projects":
         outputText =
 `FEATURED BUILDS:
-  01 Blood Management System   [React / Tailwind / MySQL]
-  02 Gadget Genie             [Specs Engine & Comparator]
-  03 Periods Tracker          [Health Utility & PHP/MySQL]
-  04 Autonomous Line Follower [Arduino / Kinematics]
+  01 Period Tracker            [Health Utility & PHP / MySQL]
+  02 Blood Management System   [React / Vite / Tailwind / MySQL]
+  03 Gadget Genie             [Specs Engine & Relational Search]
   (Tip: type 'goto projects' to jump to project showcase)`;
         break;
 
@@ -128,9 +134,9 @@ function InteractiveTerminal() {
       case "leadership":
         outputText =
 `ROLES & ACHIEVEMENTS:
-  • Coordinator @ RobogeniX (XIM University Robotics & IoT Club)
+  • Coordinator @ RobogeniX (XIM University Robotics & Tech Club)
   • Treasurer @ IEEE Student Branch
-  • 2nd Prize @ DRDO ICORT National Student Tech Exhibition 2025`;
+  • Consistent Academic Distinction (CGPA 8.68)`;
         break;
 
       case "contact":
@@ -144,7 +150,7 @@ function InteractiveTerminal() {
 
       case "goto":
       case "cd":
-        if (["projects", "skills", "about", "contact"].includes(arg)) {
+        if (["projects", "skills", "about", "contact", "activity"].includes(arg)) {
           const el = document.getElementById(arg);
           if (el) {
             el.scrollIntoView({ behavior: "smooth" });
@@ -153,19 +159,28 @@ function InteractiveTerminal() {
             outputText = `Section #${arg} not found on page.`;
           }
         } else {
-          outputText = "Usage: goto [projects | skills | about | contact]";
+          outputText = "Usage: goto [projects | skills | about | contact | activity]";
         }
         break;
 
       case "theme":
         toggleTheme();
         const nextTheme = theme === "dark" ? "light" : "dark";
-        outputText = `Theme toggled to ${nextTheme}! Page is now ${nextTheme} with ${nextTheme === "dark" ? "white" : "black"} terminal.`;
+        outputText = `Theme toggled to ${nextTheme}!`;
         isAccent = true;
         break;
 
       case "date":
         outputText = new Date().toLocaleString();
+        break;
+
+      case "echo":
+        outputText = arg || "";
+        break;
+
+      case "status":
+        outputText = "READY_TO_BUILD // OPEN FOR INTERNSHIPS & COLLABORATION";
+        isAccent = true;
         break;
 
       case "cat":
@@ -174,10 +189,12 @@ function InteractiveTerminal() {
           outputText = "Opening /resume.pdf in a new tab...";
         } else if (arg.includes("focus")) {
           outputText = "Current focus: Building scalable full-stack web applications and sharpening DSA.";
+        } else if (arg.includes("skills")) {
+          outputText = "Skills: React 18, Vite, Tailwind CSS, C++, Java, Python, MySQL, REST APIs, Linux, Git, VS Code.";
         } else if (arg.includes("leadership")) {
           outputText = "Coordinator @ RobogeniX Club · Treasurer @ IEEE Student Branch.";
         } else {
-          outputText = `cat: ${arg || "file"}: No such file or directory. Try 'cat resume' or 'cat focus'.`;
+          outputText = `cat: ${arg || "file"}: No such file or directory. Try 'cat resume', 'cat focus', or 'cat skills'.`;
         }
         break;
 
@@ -247,6 +264,7 @@ function InteractiveTerminal() {
         "clear",
         "theme",
         "date",
+        "status",
       ];
       const match = list.find((c) => c.startsWith(inputVal.toLowerCase().trim()));
       if (match) setInputVal(match);
@@ -299,10 +317,10 @@ function InteractiveTerminal() {
   return (
     <div
       onClick={() => inputRef.current?.focus({ preventScroll: true })}
-      className={`w-full ${t.container} border rounded-2xl overflow-hidden text-left cursor-text flex flex-col transition-all duration-200`}
+      className={`w-full h-[500px] sm:h-[520px] ${t.container} border rounded-2xl overflow-hidden text-left cursor-text flex flex-col transition-all duration-200 shadow-2xl`}
     >
       {/* Terminal Window Header Bar */}
-      <div className={`flex items-center justify-between px-5 py-3 ${t.header} border-b font-mono text-xs select-none transition-colors`}>
+      <div className={`flex items-center justify-between px-5 py-3 ${t.header} border-b font-mono text-xs select-none transition-colors shrink-0`}>
         <div className="flex items-center gap-2">
           <span className="w-3 h-3 rounded-full bg-red-400/90" />
           <span className="w-3 h-3 rounded-full bg-amber-400/90" />
@@ -319,7 +337,9 @@ function InteractiveTerminal() {
       </div>
 
       {/* Terminal Body with Scrollable Output and Active Input */}
-      <div className={`p-5 font-mono text-xs sm:text-sm space-y-3 h-[290px] overflow-y-auto ${t.body} transition-colors`}>
+      <div
+        className={`p-5 font-mono text-xs sm:text-sm space-y-3 flex-1 overflow-y-auto ${t.body} transition-colors`}
+      >
         {history.map((item, idx) => (
           <div key={idx} className="space-y-1">
             {item.type === "system" ? (
@@ -365,12 +385,15 @@ function InteractiveTerminal() {
             autoComplete="off"
           />
         </form>
+
+        {/* Ref anchor for automatic smooth auto-scrolling */}
+        <div ref={terminalEndRef} />
       </div>
 
       {/* Quick Clickable Suggestions / Action Chips */}
-      <div className={`flex flex-wrap items-center gap-1.5 px-5 py-2.5 ${t.bar} border-t text-xs font-mono select-none transition-colors`}>
+      <div className={`flex flex-wrap items-center gap-1.5 px-5 py-2.5 ${t.bar} border-t text-xs font-mono select-none transition-colors shrink-0`}>
         <span className="text-[10px] mr-1 hidden sm:inline opacity-70">QUICK RUN:</span>
-        {["help", "skills", "projects", "dsa", "contact", "clear"].map((cmd) => (
+        {["help", "skills", "projects", "dsa", "contact", "clear", "theme"].map((cmd) => (
           <button
             key={cmd}
             type="button"
@@ -387,7 +410,7 @@ function InteractiveTerminal() {
       </div>
 
       {/* Terminal Bottom Status Bar */}
-      <div className={`px-5 py-2 border-t ${t.footer} flex items-center justify-between text-[11px] font-mono select-none transition-colors`}>
+      <div className={`px-5 py-2 border-t ${t.footer} flex items-center justify-between text-[11px] font-mono select-none transition-colors shrink-0`}>
         <span>UTF-8 // UNIX</span>
         <span className={`flex items-center gap-1.5 ${t.indicator}`}>
           <span className={`w-1.5 h-1.5 rounded-full ${t.indicatorDot} animate-ping`} />
@@ -543,8 +566,8 @@ export default function RetroHero() {
               <span className="font-bold text-base text-[var(--color-accent)]">COORDINATOR</span>
             </div>
             <div className="p-4 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] text-center shadow-sm">
-              <span className="text-xs text-[var(--color-text-light)] block mb-1 uppercase font-bold">DRDO ICORT</span>
-              <span className="font-bold text-base text-[var(--color-warm)]">2ND PRIZE 2025</span>
+              <span className="text-xs text-[var(--color-text-light)] block mb-1 uppercase font-bold">TECH STACK</span>
+              <span className="font-bold text-base text-[var(--color-warm)]">REACT &amp; MYSQL</span>
             </div>
             <div className="p-4 rounded-xl bg-[var(--color-surface)] border border-[var(--color-border)] text-center shadow-sm">
               <span className="text-xs text-[var(--color-text-light)] block mb-1 uppercase font-bold">LEETCODE</span>

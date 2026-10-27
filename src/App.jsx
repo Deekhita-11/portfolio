@@ -1,11 +1,10 @@
 import React from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 
-// Retro Gaming & Interactive Core Components
+// Interactive Core Components
 import CustomCursor from './components/cursor/CustomCursor';
 import RetroNavbar from './components/retro/RetroNavbar';
 import RetroHero from './components/retro/RetroHero';
-import ScrollRobotTrack from './components/ScrollRobotTrack';
 import TechStackScroll from './components/TechStackScroll';
 import RetroProjects from './components/retro/RetroProjects';
 import DeveloperActivity from './components/DeveloperActivity';
@@ -16,11 +15,8 @@ import RetroFooter from './components/retro/RetroFooter';
 export default function App() {
   return (
     <ThemeProvider>
-      {/* Precision Retro Arcade Reticle Cursor */}
+      {/* Sleek Precision Cursor */}
       <CustomCursor />
-
-      {/* Autonomous Line Follower Robot Side Navigation (2XL Screen Line Follower) */}
-      <ScrollRobotTrack />
 
       {/* Main Canvas */}
       <div

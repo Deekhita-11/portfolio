@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { projects } from '../../data/projects';
 import { FiArrowUpRight, FiMaximize2 } from 'react-icons/fi';
@@ -39,7 +39,7 @@ export default function RetroProjects() {
             </h2>
           </div>
           <p className="text-sm sm:text-base font-sans text-[var(--color-text-muted)] max-w-md">
-            Production web platforms, algorithmic engines, relational databases, and autonomous hardware systems.
+            Production web platforms, full-stack architectures, algorithmic engines, and relational databases.
           </p>
         </div>
 

@@ -11,7 +11,7 @@ const AUTOCOMPLETE_SUGGESTIONS = [
   'Blood Management System',
   'Period Tracker',
   'Gadget Genie',
-  'Line Follower Bot',
+  'Java',
   'About me',
   'Experience',
   'Skills',

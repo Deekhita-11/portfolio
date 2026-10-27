@@ -15,15 +15,14 @@ const projectMapping = {
   "React": ["Blood Management System"],
   "Vite": ["Blood Management System"],
   "Tailwind CSS": ["Blood Management System"],
-  "JavaScript": ["Blood Management System", "Gadget Genie", "Periods Tracker"],
-  "PHP": ["Gadget Genie", "Periods Tracker", "Book Management System"],
-  "MySQL": ["Blood Management System", "Gadget Genie", "Periods Tracker", "Book Management System"],
-  "Arduino": ["Line Follower Bot"],
-  "C/C++": ["Line Follower Bot"],
-  "IR Sensors": ["Line Follower Bot"],
-  "L298N": ["Line Follower Bot"],
-  "ESP32": ["UPCOMING"],
-  "Differential Kinematics": ["Line Follower Bot"]
+  "JavaScript": ["Blood Management System", "Gadget Genie", "Period Tracker"],
+  "PHP": ["Gadget Genie", "Period Tracker"],
+  "MySQL": ["Blood Management System", "Gadget Genie", "Period Tracker"],
+  "Java": ["Object-Oriented Applications", "DSA"],
+  "REST APIs": ["Blood Management System", "Gadget Genie"],
+  "Linux / Bash": ["Dev Workstation", "Automation Scripts"],
+  "C/C++": ["187+ LeetCode Solutions", "Algorithm Engineering"],
+  "Git & GitHub": ["All Projects", "Version Control"]
 };
 
 export default function Systems() {

@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import {
   SiCplusplus,
   SiPython,
@@ -9,18 +9,19 @@ import {
   SiMysql,
   SiGit,
   SiGithub,
-  SiPostman,
-  SiArduino,
+  SiLinux,
 } from 'react-icons/si';
-import { TbBinaryTree } from 'react-icons/tb';
-import { FaDatabase, FaCubes } from 'react-icons/fa';
+import { TbBinaryTree, TbApi } from 'react-icons/tb';
+import { FaDatabase, FaCubes, FaJava } from 'react-icons/fa';
+import { VscCode } from 'react-icons/vsc';
 
 const SKILL_SECTIONS = [
   {
     category: 'LANGUAGES & SYNTAX',
     num: '01',
     skills: [
-      { name: 'C++', icon: SiCplusplus, desc: 'High-performance algorithm solving (187+ LeetCode) & hardware firmware', role: 'Competitive & Embedded' },
+      { name: 'C++', icon: SiCplusplus, desc: 'High-performance algorithm solving (187+ LeetCode) & system logic', role: 'Competitive & Systems' },
+      { name: 'Java', icon: FaJava, desc: 'Robust object-oriented programming, class design & JVM multithreading', role: 'OOP & Enterprise' },
       { name: 'Python', icon: SiPython, desc: 'Data logic testing, script automation & algorithm prototyping', role: 'Automation' },
       { name: 'JavaScript (ES6+)', icon: SiJavascript, desc: 'Asynchronous event loops, DOM engines & full-stack logic', role: 'Web Logic' },
     ],
@@ -44,12 +45,13 @@ const SKILL_SECTIONS = [
     ],
   },
   {
-    category: 'TOOLCHAIN & COLLABORATION',
+    category: 'TOOLCHAIN & ENVIRONMENT',
     num: '04',
     skills: [
-      { name: 'Git & GitHub', icon: SiGithub, desc: 'Distributed version control, atomic branching & 284+ commits', role: 'Version Control' },
-      { name: 'Postman', icon: SiPostman, desc: 'REST endpoint testing, schema contract validation & mocking', role: 'API Testing' },
-      { name: 'Arduino & Sensors', icon: SiArduino, desc: 'Differential drive PID control & hardware sensor arrays', role: 'Robotics' },
+      { name: 'Git & GitHub', icon: SiGithub, desc: 'Distributed version control, atomic branching & production pipelines', role: 'Version Control' },
+      { name: 'REST APIs', icon: TbApi, desc: 'REST endpoint testing, schema contract validation & stateless services', role: 'Network Architecture' },
+      { name: 'Linux / Bash', icon: SiLinux, desc: 'UNIX shell scripting, command-line utilities & developer tooling', role: 'System Environment' },
+      { name: 'VS Code', icon: VscCode, desc: 'Integrated debuggers, linting pipelines & workspace extensions', role: 'Developer Suite' },
     ],
   },
 ];

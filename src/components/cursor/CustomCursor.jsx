@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function CustomCursor() {
@@ -31,11 +31,14 @@ export default function CustomCursor() {
       const target = e.target instanceof Element ? e.target : e.target?.parentElement;
       if (!target || typeof target.closest !== "function") return;
 
+      const isInputEl = target.closest("input, textarea, select, [contenteditable='true']");
       const inspectEl = target.closest('[data-cursor="inspect"]');
       const exploreEl = target.closest('[data-cursor="explore"], [data-cursor="project"]');
-      const interactiveEl = target.closest("a, button, [role='button'], input, textarea, select");
+      const interactiveEl = target.closest("a, button, [role='button']");
 
-      if (inspectEl) {
+      if (isInputEl) {
+        setCursorType("input");
+      } else if (inspectEl) {
         setCursorType("inspect");
       } else if (exploreEl) {
         setCursorType("explore");
@@ -70,7 +73,8 @@ export default function CustomCursor() {
         className="fixed top-0 left-0 pointer-events-none -translate-x-1/2 -translate-y-1/2"
         style={{ x: pos.x, y: pos.y }}
         animate={{
-          scale: isClicking ? 0.75 : cursorType === "link" ? 1.25 : 1,
+          scale: isClicking ? 0.75 : cursorType === "input" ? 0.5 : cursorType === "link" ? 1.25 : 1,
+          opacity: cursorType === "input" ? 0.15 : 1,
           rotate: cursorType === "explore" ? 45 : 0,
         }}
         transition={{ type: "spring", stiffness: 500, damping: 25 }}

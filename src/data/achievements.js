@@ -9,7 +9,7 @@ export const achievements = [
   {
     id: 2,
     icon: "robot",
-    title: "Participant — Megatron & Line Follower",
+    title: "Participant — Silicon Techfest Exhibition",
     subtitle: "Nirman Silicon Techfest 2025",
     year: "2025",
   },

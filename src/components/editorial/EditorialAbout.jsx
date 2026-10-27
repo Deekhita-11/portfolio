@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { FiAward, FiBookOpen, FiUserCheck } from 'react-icons/fi';
 
 const EDUCATION_LEDGER = [
@@ -29,7 +29,7 @@ const RECOGNITION_LEDGER = [
   {
     title: 'ICORT 2025 — ITR-DRDO Chandipur',
     award: '2nd Position Student Exhibition Award',
-    desc: 'Awarded 2nd position at 4th International Conference on Range Technology for Autonomous Line Follower Robot differential drive system.',
+    desc: 'Awarded 2nd position at 4th International Conference on Range Technology for technical student exhibition prototype.',
   },
   {
     title: 'RobogeniX Club (Robotics & IoT)',

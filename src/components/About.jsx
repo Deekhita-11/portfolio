@@ -4,21 +4,21 @@ import { useScrollReveal } from "../hooks/useScrollReveal";
 const DOMAIN_CARDS = [
   {
     num: "01",
-    title: "WEB ARCHITECTURE",
-    desc: "Full-stack interfaces & distributed relational systems",
-    tech: ["React 18", "Vite", "Tailwind CSS", "JavaScript ES6+", "PHP", "MySQL"]
+    title: "FRONTEND ARCHITECTURE",
+    desc: "Responsive web interfaces, component design systems & high-fidelity user experiences",
+    tech: ["React 18", "Vite", "Tailwind CSS", "JavaScript ES6+", "HTML5 / CSS3"]
   },
   {
     num: "02",
-    title: "ROBOTICS & KINEMATICS",
-    desc: "Hardware kinematics & autonomous physical prototypes",
-    tech: ["Arduino Uno", "Sensor Arrays", "L298N Drivers", "Differential Drive"]
+    title: "BACKEND & DATA PERSISTENCE",
+    desc: "Relational schema design, ACID transactions, atomic data operations & RESTful APIs",
+    tech: ["REST APIs", "MySQL", "PHP 8.x", "3NF Normalization", "Relational Schemas"]
   },
   {
     num: "03",
-    title: "EMBEDDED SYSTEMS",
-    desc: "Microcontrollers, firmware sensors & control loops",
-    tech: ["ATmega328P", "ESP32", "PWM Steering", "Serial Protocols"]
+    title: "ALGORITHMS & CORE CS",
+    desc: "Rigorous problem solving with optimal time/space complexity, trees, graphs & dynamic programming",
+    tech: ["C++", "Python", "187+ LeetCode", "Data Structures", "OOP & DBMS"]
   }
 ];
 
@@ -142,7 +142,7 @@ export default function About() {
                   ENGINEERING MANIFESTO
                 </p>
                 <p className="text-sm sm:text-base text-[var(--color-text-muted)] leading-relaxed italic border-l-2 border-[var(--color-accent)] pl-4 font-sans">
-                  "I treat computing as a unified system — frontend code controls backend logic, which communicates through serial protocols to microcontrollers, turning code into motion."
+                  "I treat software engineering as an end-to-end craft — from responsive frontend architectures to resilient database transactions and algorithmic optimization."
                 </p>
               </div>
               

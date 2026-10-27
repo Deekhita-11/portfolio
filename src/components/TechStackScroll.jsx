@@ -1,4 +1,4 @@
-﻿import React, { useRef } from "react";
+import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   SiCplusplus,
@@ -10,27 +10,35 @@ import {
   SiMysql,
   SiGit,
   SiGithub,
-  SiPostman,
-  SiArduino,
+  SiLinux,
 } from "react-icons/si";
-import { TbBinaryTree } from "react-icons/tb";
-import { FaDatabase, FaCubes } from "react-icons/fa";
+import { TbBinaryTree, TbApi } from "react-icons/tb";
+import { FaDatabase, FaCubes, FaJava } from "react-icons/fa";
+import { VscCode } from "react-icons/vsc";
 
-// The 4 Categories with exact matching skills from the user screenshot, using actual brand icons and original brand colors
+// The 4 Categories with modern software engineering skills and brand icons
 const TECH_CATEGORIES = [
   {
     num: "01",
     category: "LANGUAGES & SYNTAX",
     badge: "FOUNDATION",
-    summary: "High-performance algorithms, system firmware & web logic",
+    summary: "High-performance algorithms, system logic & modern web scripting",
     skills: [
       {
         name: "C++",
         icon: SiCplusplus,
         brandColor: "#00599C", // Official C++ Blue
         brandBg: "rgba(0, 89, 156, 0.14)",
-        role: "COMPETITIVE & EMBEDDED",
-        desc: "High-performance algorithm solving (187+ LeetCode) & hardware firmware",
+        role: "COMPETITIVE & SYSTEMS",
+        desc: "High-performance algorithm solving (187+ LeetCode) & memory-efficient logic",
+      },
+      {
+        name: "Java",
+        icon: FaJava,
+        brandColor: "#EA2D2E", // Official Java Red
+        brandBg: "rgba(234, 45, 46, 0.14)",
+        role: "OOP & ENTERPRISE",
+        desc: "Object-oriented software systems, JVM architecture & algorithmic problem solving",
       },
       {
         name: "Python",
@@ -46,7 +54,7 @@ const TECH_CATEGORIES = [
         brandColor: "#F7DF1E", // Official JavaScript Yellow
         brandBg: "rgba(247, 223, 30, 0.14)",
         role: "WEB LOGIC",
-        desc: "Asynchronous event loops, DOM engines & full-stack logic",
+        desc: "Asynchronous event loops, DOM engines & modern full-stack logic",
       },
     ],
   },
@@ -103,7 +111,7 @@ const TECH_CATEGORIES = [
         brandColor: "#A855F7", // Purple Architecture
         brandBg: "rgba(168, 85, 247, 0.14)",
         role: "SOFTWARE DESIGN",
-        desc: "Encapsulation, modularity, abstraction & design patterns",
+        desc: "Encapsulation, modularity, abstraction & clean architecture patterns",
       },
       {
         name: "DBMS & Relational Data",
@@ -117,9 +125,9 @@ const TECH_CATEGORIES = [
   },
   {
     num: "04",
-    category: "TOOLCHAIN & COLLABORATION",
+    category: "TOOLCHAIN & CLOUD ENVIRONMENT",
     badge: "WORKBENCH",
-    summary: "Distributed version control, API testing & autonomous robotics",
+    summary: "Version control, REST APIs, UNIX shell workflows & modern IDE suites",
     skills: [
       {
         name: "Git & GitHub",
@@ -127,23 +135,31 @@ const TECH_CATEGORIES = [
         brandColor: "var(--color-text)", // Adapts to theme
         brandBg: "rgba(148, 163, 184, 0.14)",
         role: "VERSION CONTROL",
-        desc: "Distributed version control, atomic branching & 284+ commits",
+        desc: "Distributed version control, atomic branching & production pipelines",
       },
       {
-        name: "Postman",
-        icon: SiPostman,
-        brandColor: "#FF6C37", // Official Postman Orange
-        brandBg: "rgba(255, 108, 55, 0.14)",
-        role: "API TESTING",
-        desc: "REST endpoint testing, schema contract validation & mocking",
+        name: "REST APIs",
+        icon: TbApi,
+        brandColor: "#10B981", // Emerald Green
+        brandBg: "rgba(16, 185, 129, 0.14)",
+        role: "NETWORK ARCHITECTURE",
+        desc: "Stateless JSON endpoints, schema contracts, HTTP lifecycle & CORS",
       },
       {
-        name: "Arduino & Sensors",
-        icon: SiArduino,
-        brandColor: "#00979D", // Official Arduino Teal
-        brandBg: "rgba(0, 151, 157, 0.14)",
-        role: "ROBOTICS",
-        desc: "Differential drive PID control & hardware sensor arrays",
+        name: "Linux / Bash",
+        icon: SiLinux,
+        brandColor: "#FCC624", // Linux Gold
+        brandBg: "rgba(252, 198, 36, 0.14)",
+        role: "UNIX & WORKSPACE",
+        desc: "Shell scripting, command line utilities & workstation automation",
+      },
+      {
+        name: "VS Code",
+        icon: VscCode,
+        brandColor: "#007ACC", // Official VS Code Blue
+        brandBg: "rgba(0, 122, 204, 0.14)",
+        role: "DEVELOPER IDE",
+        desc: "Modern development suite, integrated debuggers & productive workspace configurations",
       },
     ],
   },

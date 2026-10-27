@@ -25,12 +25,12 @@ export const searchDatabase = [
     category: 'Skills',
     title: 'C++ Programming & Problem Solving',
     displayUrl: 'deekhita.dev/skills/cpp',
-    snippet: 'High-performance algorithm solving and microcontroller systems. Used in solving 187+ LeetCode algorithmic problems and Autonomous Line Follower firmware.',
-    tags: ['C++', 'STL', 'Algorithms', 'Microcontrollers'],
+    snippet: 'High-performance algorithm solving and software systems. Used in solving 187+ LeetCode algorithmic problems and efficient memory management.',
+    tags: ['C++', 'STL', 'Algorithms', 'DSA'],
     details: {
       domain: 'Languages',
       level: 'Advanced',
-      usedIn: ['187+ LeetCode Problems', 'Line Follower Bot (ICORT 2025 DRDO)'],
+      usedIn: ['187+ LeetCode Problems', 'System Algorithms & Problem Solving'],
     }
   },
   {
@@ -145,6 +145,48 @@ export const searchDatabase = [
       usedIn: ['GitHub: @Deekhita-11', 'All Repositories'],
     }
   },
+  {
+    id: 'skill-java',
+    type: 'skill',
+    category: 'Skills',
+    title: 'Java Programming & OOP Architecture',
+    displayUrl: 'deekhita.dev/skills/java',
+    snippet: 'Object-oriented application architecture, class hierarchies, multithreading, and algorithmic problem solving.',
+    tags: ['Java', 'OOP', 'JVM', 'Backend', 'Software Design'],
+    details: {
+      domain: 'Languages',
+      level: 'Proficient',
+      usedIn: ['Core CS Curriculum', 'Object-Oriented Applications'],
+    }
+  },
+  {
+    id: 'skill-rest',
+    type: 'skill',
+    category: 'Skills',
+    title: 'REST APIs & Web Services',
+    displayUrl: 'deekhita.dev/skills/rest-api',
+    snippet: 'Designing scalable stateless REST endpoints, JSON schemas, HTTP status protocols, and client-server integrations.',
+    tags: ['REST API', 'HTTP', 'JSON', 'Endpoints', 'Web Services'],
+    details: {
+      domain: 'Backend',
+      level: 'Advanced',
+      usedIn: ['Blood Management System', 'Full-Stack Apps'],
+    }
+  },
+  {
+    id: 'skill-linux',
+    type: 'skill',
+    category: 'Skills',
+    title: 'Linux / Bash & CLI Tooling',
+    displayUrl: 'deekhita.dev/skills/linux',
+    snippet: 'Command line utilities, shell scripting, environment configuration, process management, and Git workflows in UNIX environments.',
+    tags: ['Linux', 'Bash', 'Shell', 'UNIX', 'CLI'],
+    details: {
+      domain: 'Tools',
+      level: 'Proficient',
+      usedIn: ['Workstation Environments', 'Automation Scripts'],
+    }
+  },
 
   // ── 03. ABOUT & EXPERIENCE
   {
@@ -167,12 +209,12 @@ export const searchDatabase = [
     category: 'Experience',
     title: 'RobogeniX Coordinator (Robotics & IoT Club)',
     displayUrl: 'deekhita.dev/experience/robogenix',
-    snippet: 'Coordinator / Secretary driving autonomous robotics workshops, sensor integration bootcamps, and microcontroller track designs.',
-    tags: ['Leadership', 'RobogeniX', 'Robotics', 'IoT', 'Workshops'],
+    snippet: 'Coordinator driving student technical initiatives, development workshops, and algorithmic bootcamps.',
+    tags: ['Leadership', 'RobogeniX', 'Technical Club', 'Workshops'],
     details: {
       role: 'Coordinator & Secretary',
       club: 'RobogeniX Club',
-      focus: 'Autonomous track design, hardware workshops',
+      focus: 'Technical events, student workshops',
     }
   },
   {
@@ -181,12 +223,12 @@ export const searchDatabase = [
     category: 'Experience',
     title: 'ICORT 2025 DRDO — 2nd Position Exhibition Award',
     displayUrl: 'deekhita.dev/experience/drdo-icort',
-    snippet: 'Awarded 2nd position at Student Project Exhibition, 4th International Conference on Range Technology (ITR-DRDO Chandipur) for Autonomous Line Follower Robot.',
-    tags: ['DRDO', 'ICORT 2025', '2nd Prize', 'Award', 'Robotics'],
+    snippet: 'Awarded 2nd position at Student Project Exhibition, 4th International Conference on Range Technology (ITR-DRDO Chandipur).',
+    tags: ['DRDO', 'ICORT 2025', '2nd Prize', 'Award', 'Engineering'],
     details: {
       conference: 'ICORT 2025 — ITR-DRDO Chandipur',
       rank: '2nd Position',
-      project: 'Autonomous Line Follower Robot',
+      project: 'Engineering Prototype',
     }
   },
   {

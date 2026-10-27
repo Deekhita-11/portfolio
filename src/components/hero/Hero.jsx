@@ -71,7 +71,6 @@ function TerminalPrompt() {
           "[01] PERIOD TRACKER        - Cycle prediction logic & relational MySQL store",
           "[02] BLOOD MANAGEMENT     - React 18, Vite, responsive donor-recipient workflow",
           "[03] GADGET GENIE          - Parametric catalog, relational store & query engine",
-          "[04] LINE FOLLOWER BOT     - Autonomous PID differential drive (ICORT 2025 DRDO)",
         ];
         break;
 
